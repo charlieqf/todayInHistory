@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipeline Control Center - #{{ job.id }}</title>
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --primary: #3b82f6;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+        }
+
+        .badge {
+            background: #e0e7ff;
+            color: #4338ca;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        /* Pipeline Pipeline layout */
+        .pipeline-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .node-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .node-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.75rem;
+        }
+
+        .node-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            /* unstarted */
+        }
+
+        .status-dot.active {
+            background: var(--primary);
+            box-shadow: 0 0 8px var(--primary);
+        }
+
+        .status-dot.done {
+            background: var(--success);
+        }
+
+        .status-dot.error {
+            background: #ef4444;
+        }
+
+        .node-body {
+            flex-grow: 1;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .data-block {
+            background: #f1f5f9;
+            padding: 0.75rem;
+            border-radius: 4px;
+            font-family: monospace;
+            margin-top: 0.5rem;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #e2e8f0;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 0.5rem;
+            font-family: monospace;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            resize: vertical;
+        }
+
+        .btn-run {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        .btn-run:hover {
+            background: #2563eb;
+        }
+
+        .btn-run:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="/" class="back-link">← 返回控制台大盘</a>
+
+    <div class="header">
+        <div>
+            <h1>🎬 工作流调度 / Pipeline Job #{{ job.id }}</h1>
+            <p style="margin-top: 0.5rem; font-weight: 600; color: #334155;">{{ job.title }} ({{ job.year }}年)</p>
+        </div>
+        <div class="badge">Status: {{ job.status }}</div>
+    </div>
+
+    <!-- PIPELINE VISUALIZATION -->
+    <div class="pipeline-container">
+        <!-- Node 1: Material -->
+        <div class="node-card">
+            <div class="node-header">
+                <span class="node-title">📖 1. 原始知识与深度挖掘</span>
+                <div class="status-dot done" title="Completed"></div>
+            </div>
+            <div class="node-body">
+                <p><strong>大事件:</strong> {{ job.title }}</p>
+                <div class="data-block" style="max-height: 120px;">{{ job.summary }}</div>
+
+                <h4 style="margin-top:1rem; color:#334155;">深度挖掘 Prompt (Enrichment):</h4>
+                <textarea id="enrichPrompt" placeholder="例如：请深入挖掘这场发布会背后的商业博弈，补充乔布斯当天的着装细节和观众反应..."></textarea>
+                <div class="data-block"
+                    style="display: {{ 'block' if job.rich_context else 'none' }}; max-height: 120px; background: #fefce8; border-color: #fde047;">
+                    {{ job.rich_context or '' }}
+                </div>
+
+                <button class="btn-run" onclick="runNode('enrich')">▶️ 让大模型重新深入挖掘该素材</button>
+            </div>
+        </div>
+
+        <!-- Node 2: Script Gen -->
+        <div class="node-card">
+            <div class="node-header">
+                <span class="node-title">✍️ 2. 大语言模型剧本分镜</span>
+                <div
+                    class="status-dot {{ 'done' if job.script_json else 'active' if job.status == 'PENDING' else '' }}">
+                </div>
+            </div>
+            <div class="node-body">
+                <p>基于知识库事件，生成Remotion专用的镜头拆解JSON和Image Prompt。</p>
+
+                <h4 style="margin-top:1rem; color:#334155;">JSON Script (可调试):</h4>
+                <textarea id="scriptJson" placeholder="等待大模型生成...">{{ job.script_json or '' }}</textarea>
+
+                <button class="btn-run" onclick="runNode('script')">▶️ 生成 / 重新生成分镜</button>
+            </div>
+        </div>
+
+        <!-- Node 3: Audio/Image Assets -->
+        <div class="node-card">
+            <div class="node-header">
+                <span class="node-title">🎨 3. 音画资产合成 (TTS & Flux)</span>
+                <div
+                    class="status-dot {{ 'done' if job.audio_path else 'active' if job.status == 'SCRIPT_GEN' else '' }}">
+                </div>
+            </div>
+            <div class="node-body">
+                <p>调用 Edge-TTS 生成主播配音，并发抓取或生成分镜所需的所有图片素材。</p>
+
+                <div style="margin-top:1rem;">
+                    <p><strong>Audio Track:</strong> <br><span style="font-family:monospace; color:#3b82f6;">{{
+                            job.audio_path or '未生成' }}</span></p>
+                    <p style="margin-top:0.5rem;"><strong>Images (1-8):</strong> <br><span
+                            style="font-family:monospace; color:#3b82f6;">{{ '已就绪' if job.image_prompt_1 else '未生成'
+                            }}</span></p>
+                </div>
+
+                <button class="btn-run" onclick="runNode('assets')" {{ 'disabled' if not job.script_json }}>▶️
+                    开始合成资产</button>
+            </div>
+        </div>
+
+        <!-- Node 4: Rendering -->
+        <div class="node-card">
+            <div class="node-header">
+                <span class="node-title">🎞️ 4. Remotion 物理印制</span>
+                <div
+                    class="status-dot {{ 'done' if job.status == 'RENDER_COMPLETE' else 'active' if job.audio_path and job.status != 'RENDER_COMPLETE' else '' }}">
+                </div>
+            </div>
+            <div class="node-body">
+                <p>在后台调用 Node.js 和 FFmpeg，合并 JSON、录音和图片，压制出最终的 1080P MP4 视频。</p>
+
+                <div style="margin-top:1rem;">
+                    <p><strong>最终成片地址:</strong></p>
+                    <div class="data-block" style="color: {{ '#10b981' if job.video_path else '#94a3b8' }}">
+                        {{ job.video_path or 'Waiting for render...' }}
+                    </div>
+                </div>
+
+                <button class="btn-run" onclick="runNode('render')" {{ 'disabled' if not job.audio_path }}>▶️
+                    启动渲染集群</button>
+            </div>
+        </div>
+
+        <!-- Node 5: Publishing & Analytics -->
+        <div class="node-card">
+            <div class="node-header">
+                <span class="node-title">📤 5. 多平台分发与回收</span>
+                <div
+                    class="status-dot {{ 'done' if metrics else 'active' if job.status == 'RENDER_COMPLETE' else '' }}">
+                </div>
+            </div>
+            <div class="node-body">
+                <p>记录并追踪在微信视频号、抖音、小红书和YouTube等平台的发布链接及转化数据。</p>
+                <div style="margin-top:1rem;">
+                    {% if metrics %}
+                    <table style="width:100%; font-size: 0.8rem; text-align: left; border-collapse: collapse;">
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <th>平台</th>
+                            <th>URL</th>
+                            <th>播放量</th>
+                        </tr>
+                        {% for m in metrics %}
+                        <tr>
+                            <td style="padding: 0.25rem 0;"><strong>{{ m.platform }}</strong></td>
+                            <td>{{ '🔗 已登记' if m.url else '无' }}</td>
+                            <td>{{ m.views }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    {% else %}
+                    <p style="color:#94a3b8; font-size:0.75rem;">暂无分发记录</p>
+                    {% endif %}
+                </div>
+
+                <div style="margin-top:1rem; padding-top:1rem; border-top:1px dashed var(--border);">
+                    <select id="pubPlatform"
+                        style="width:100%; margin-bottom:0.5rem; padding:0.4rem; border:1px solid var(--border); border-radius:4px;">
+                        <option value="wechat">微信视频号</option>
+                        <option value="douyin">抖音短视频</option>
+                        <option value="xiaohongshu">小红书</option>
+                        <option value="youtube">YouTube Shorts</option>
+                    </select>
+                    <input type="text" id="pubUrl" placeholder="输入视频链接 URL..."
+                        style="width:100%; margin-bottom:0.5rem; padding:0.4rem; border:1px solid var(--border); border-radius:4px;">
+                    <button class="btn-run" onclick="runNode('publish')">▶️ 登记分发状态</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function runNode(nodeName) {
+            if (nodeName === 'enrich') {
+                const prompt = document.getElementById('enrichPrompt').value;
+                if (!prompt) return alert('请输入挖掘要求');
+
+                try {
+                    const res = await fetch(`/api/jobs/{{job.id}}/enrich`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ prompt })
+                    });
+                    const data = await res.json();
+                    if (data.error) throw new Error(data.error);
+                    alert("挖掘请求已提交");
+                    window.location.reload();
+                } catch (e) {
+                    alert('挖掘失败: ' + e.message);
+                }
+            } else if (nodeName === 'publish') {
+                const platform = document.getElementById('pubPlatform').value;
+                const url = document.getElementById('pubUrl').value;
+
+                try {
+                    const res = await fetch(`/api/jobs/{{job.id}}/publish`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ platform, url })
+                    });
+                    const data = await res.json();
+                    if (data.error) throw new Error(data.error);
+                    alert(data.message);
+                    window.location.reload();
+                } catch (e) {
+                    alert('登记分发失败: ' + e.message);
+                }
+            } else {
+                alert(`在下一版中，这里将触发自动化后端的 ${nodeName} 节点。\n当前界面仅做状态流转的架构演示。`);
+            }
+        }
+    </script>
+</body>
+
+</html>

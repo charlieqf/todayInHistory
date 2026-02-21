@@ -1,0 +1,38 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Built videos and heavy media assets
+*.mp4
+*.webm
+*.mov
+*.avi
+video-generator/out/
+out/
+dist/
+
+# Logs and databases
+*.sqlite
+*.db
+*.log
+history_events.db
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Node JS
+node_modules/
+package-lock.json
+
+# IDEs and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

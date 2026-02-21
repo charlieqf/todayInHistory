@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT历史上的今天 - 数据库素材控制台</title>
+    <style>
+        :root {
+            --bg-body: #f7f9fc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --score-high: #ef4444;
+            --score-mid: #f59e0b;
+            --score-low: #3b82f6;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* ----- Header & Stats ----- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #0f172a;
+        }
+
+        .header p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .stats-badge {
+            background: #e0e7ff;
+            color: #4338ca;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* ----- Search & Filters ----- */
+        .toolbar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            background: var(--bg-card);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .control-group.search-group {
+            flex: 3;
+            min-width: 300px;
+        }
+
+        .control-group label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"],
+        select {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-family: inherit;
+            color: var(--text-main);
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        /* ----- Table Layout ----- */
+        .table-container {
+            background: var(--bg-card);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th,
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f8fafc;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        tbody tr {
+            transition: background-color 0.15s ease;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* ----- Specific Columns ----- */
+        .col-id {
+            width: 60px;
+            text-align: center;
+            font-family: monospace;
+            color: var(--text-muted);
+        }
+
+        .col-date {
+            width: 60px;
+            text-align: center;
+            font-family: monospace;
+            color: var(--text-muted);
+        }
+
+        .col-date {
+            width: 100px;
+            font-variant-numeric: tabular-nums;
+            font-weight: 500;
+            color: #475569;
+        }
+
+        .col-score {
+            width: 80px;
+            text-align: center;
+        }
+
+        .col-category {
+            width: 140px;
+        }
+
+        .col-title {
+            width: 250px;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .col-summary {
+            font-size: 0.875rem;
+            color: #475569;
+            max-width: 400px;
+        }
+
+        /* ----- UI Elements ----- */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 4px;
+            background: #e2e8f0;
+            color: #334155;
+            white-space: nowrap;
+        }
+
+        .score-indicator {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.875rem;
+            color: white;
+        }
+
+        .score-10,
+        .score-9,
+        .score-8 {
+            background-color: var(--score-high);
+        }
+
+        .score-7,
+        .score-6,
+        .score-5 {
+            background-color: var(--score-mid);
+        }
+
+        .score-4,
+        .score-3,
+        .score-2,
+        .score-1 {
+            background-color: var(--score-low);
+        }
+
+        .pipeline-badge {
+            font-size: 0.70rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        .status-UNSTARTED {
+            background-color: #f1f5f9;
+            color: #94a3b8;
+        }
+
+        .status-PENDING {
+            background-color: #fef08a;
+            color: #854d0e;
+        }
+
+        .status-SCRIPT_GEN {
+            background-color: #bfdbfe;
+            color: #1e40af;
+        }
+
+        .status-AUDIO_GEN {
+            background-color: #ddd6fe;
+            color: #5b21b6;
+        }
+
+        .status-RENDER_COMPLETE {
+            background-color: #bbf7d0;
+            color: #166534;
+        }
+
+        .platform-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: bold;
+            color: white;
+            margin-right: 2px;
+            opacity: 0.25;
+            /* Default: un-published, but keeps color */
+            transition: opacity 0.2s;
+        }
+
+        .platform-icon.wechat {
+            background-color: #07c160;
+        }
+
+        .platform-icon.douyin {
+            background-color: #000000;
+        }
+
+        .platform-icon.xiaohongshu {
+            background-color: #ff2442;
+        }
+
+        .platform-icon.youtube {
+            background-color: #ff0000;
+        }
+
+        .platform-icon.published {
+            opacity: 1;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-action {
+            padding: 0.25rem 0.5rem;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            color: var(--text-main);
+            transition: all 0.2s;
+        }
+
+        .btn-action:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .loading {
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Data formatting */
+        .text-ellipsis {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div>
+            <h1>历史上的今天 · 数据库控制台</h1>
+            <p>基于本地 SQLite 构建的结构化视频素材库</p>
+        </div>
+        <div class="stats-badge" id="totalCountBadge">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4">
+                </path>
+            </svg>
+            <span id="totalCountText">读取中...</span>
+        </div>
+    </div>
+
+    <div class="toolbar">
+        <div class="control-group search-group">
+            <label for="searchInput">关键词搜索 (Keyword)</label>
+            <input type="text" id="searchInput" placeholder="搜索标题或提取的摘要内容..." oninput="debounceFetch()">
+        </div>
+        <div class="control-group">
+            <label for="monthSelect">发生月份 (Month)</label>
+            <select id="monthSelect" onchange="fetchEvents()">
+                <option value="">全部月份</option>
+                <option value="1">1月 (Jan)</option>
+                <option value="2">2月 (Feb)</option>
+                <option value="3">3月 (Mar)</option>
+                <option value="4">4月 (Apr)</option>
+                <option value="5">5月 (May)</option>
+                <option value="6">6月 (Jun)</option>
+                <option value="7">7月 (Jul)</option>
+                <option value="8">8月 (Aug)</option>
+                <option value="9">9月 (Sep)</option>
+                <option value="10">10月 (Oct)</option>
+                <option value="11">11月 (Nov)</option>
+                <option value="12">12月 (Dec)</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label for="categorySelect">数据分类 (Category)</label>
+            <select id="categorySelect" onchange="fetchEvents()">
+                <option value="">全部分类</option>
+                <!-- Populated dynamically -->
+            </select>
+        </div>
+        <div class="control-group">
+            <label for="sortSelect">排序规则 (Sort)</label>
+            <select id="sortSelect" onchange="fetchEvents()">
+                <option value="importance_score">爆款指数 (Score) 从高到低</option>
+                <option value="date_asc">按日历顺序 (Jan 1 -> Dec 31)</option>
+                <option value="date_desc">按日历倒序 (Dec 31 -> Jan 1)</option>
+                <option value="year_desc">事件年份 (最新发生)</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th class="col-id">#ID</th>
+                    <th class="col-score">爆款指数</th>
+                    <th class="col-date">日历月/日</th>
+                    <th class="col-category">分类</th>
+                    <th class="col-date">事件年份</th>
+                    <th class="col-title">推荐短视频标题</th>
+                    <th class="col-summary">AI 提取核心摘要</th>
+                    <th class="col-category">生产流水线状态</th>
+                    <th class="col-category">多平台分发</th>
+                    <th class="col-category">操作</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr>
+                    <td colspan="10" class="loading">正在查询数据库...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let searchTimeout;
+
+        function debounceFetch() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(fetchEvents, 300);
+        }
+
+        async function fetchStats() {
+            try {
+                const res = await fetch('/api/stats');
+                const data = await res.json();
+
+                document.getElementById('totalCountText').innerText = `已入库 ${data.total} 条事件`;
+
+                const catSelect = document.getElementById('categorySelect');
+                data.categories.forEach(cat => {
+                    const opt = document.createElement('option');
+                    opt.value = cat;
+                    opt.innerText = cat;
+                    catSelect.appendChild(opt);
+                });
+            } catch (e) {
+                console.error("Failed to fetch stats", e);
+            }
+        }
+
+        async function fetchEvents() {
+            const search = document.getElementById('searchInput').value;
+            const month = document.getElementById('monthSelect').value;
+            const category = document.getElementById('categorySelect').value;
+            const sort = document.getElementById('sortSelect').value;
+
+            const params = new URLSearchParams({ search, month, category, sort });
+
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '<tr><td colspan="10" class="loading">查询中...</td></tr>';
+
+            try {
+                const res = await fetch(`/api/events?${params}`);
+                const events = await res.json();
+
+                if (events.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="10" class="loading">没有匹配的数据</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = events.map(e => {
+                    const platforms = e.published_platforms ? e.published_platforms.split(',') : [];
+                    const isPub = (p) => platforms.includes(p) ? 'published' : '';
+
+                    return `
+                    <tr>
+                        <td class="col-id">${e.id}</td>
+                        <td class="col-score">
+                            <span class="score-indicator score-${e.importance_score}">
+                                ${e.importance_score}
+                            </span>
+                        </td>
+                        <td class="col-date">
+                            <strong>${e.month}月${e.day}日</strong>
+                        </td>
+                        <td class="col-category">
+                            <span class="badge">${e.category || '未分类'}</span>
+                        </td>
+                        <td class="col-date">${e.year}年</td>
+                        <td class="col-title">${e.title}</td>
+                        <td class="col-summary">
+                            <div class="text-ellipsis" title="${e.summary}">${e.summary}</div>
+                        </td>
+                        <td class="col-category">
+                            <span class="pipeline-badge status-${e.pipeline_status}">${e.pipeline_status}</span>
+                        </td>
+                        <td class="col-category" style="white-space: nowrap;">
+                            <span class="platform-icon wechat ${isPub('wechat')}" title="视频号">微</span>
+                            <span class="platform-icon douyin ${isPub('douyin')}" title="抖音">抖</span>
+                            <span class="platform-icon xiaohongshu ${isPub('xiaohongshu')}" title="小红书">红</span>
+                            <span class="platform-icon youtube ${isPub('youtube')}" title="YouTube">Y</span>
+                        </td>
+                        <td class="col-category">
+                            ${e.pipeline_status === 'UNSTARTED'
+                            ? `<button class="btn-action" onclick="createPipelineJob(${e.id})">💡 下发生产(Job)</button>`
+                            : `<a href="/pipeline/${e.job_id}" class="btn-action" style="border-color: #10b981; color: #10b981; text-decoration: none; display: inline-block;">👁️ 跟踪节点</a>`
+                        }
+                        </td>
+                    </tr>
+                `}).join('');
+            } catch (e) {
+                tbody.innerHTML = `<tr><td colspan="10" class="loading" style="color: red;">请求失败: ${e.message}</td></tr>`;
+            }
+        }
+
+        async function createPipelineJob(eventId) {
+            try {
+                const res = await fetch('/api/create_job', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ event_id: eventId })
+                });
+                const data = await res.json();
+                if (data.error) throw new Error(data.error);
+                fetchEvents();
+            } catch (e) {
+                alert("创建流水线任务失败:\n" + e.message);
+            }
+        }
+
+        // Init
+        fetchStats();
+        fetchEvents();
+    </script>
+</body>
+
+</html>
