@@ -1,0 +1,71 @@
+{
+    "event_date": "March 1, 1973",
+    "event_title": "施乐的史诗级失误与乔布斯的震惊",
+    "audio_script": "五十多年前的今天，1973年3月1日，人类历史上第一台“现代电脑”诞生，它叫 Xerox Alto。但你敢信吗？发明它的施乐高管，根本没意识到这玩意儿有多逆天！当时满大街还是敲枯燥代码的机器，而 Alto 已经史无前例地拥有了能拉拽窗口的“图形界面”，甚至还标配了一个没人见过的神奇小盒子——鼠标！结果呢？只做复印机的施乐高层，居然只把它当成了“稍微高级点的打印排版工具”。直到1979年，一个24岁的狂热年轻人用百万美元的苹果股票期权，死皮赖脸地换取了来施乐参观3天 Alto 的机会。他看到鼠标在屏幕滑动的瞬间，当场震惊，激动地在走廊里尖叫！这个年轻人就是乔布斯。他回去后立刻“借鉴”了这个创意，五年后，改变世界的苹果麦金塔电脑横空出世，彻底开启了大众PC时代。向半个世纪前被遗忘的伟大极客致敬！",
+    "scenes": [
+        {
+            "timestamp_start": 0,
+            "timestamp_end": 5,
+            "image_prompt": "1970s laboratory, close up shot of a vintage computer terminal showing glowing green text on a black screen, dark and moody, cinematic lighting, 8k resolution, photorealistic",
+            "image_file": "scene_1.png",
+            "animation": "zoom_in_slow",
+            "caption": "1973年这台神机的诞生"
+        },
+        {
+            "timestamp_start": 5,
+            "timestamp_end": 12,
+            "image_prompt": "The historical Xerox Alto personal computer taking center stage on a wooden desk...",
+            "image_file": "real_xerox_alto.jpg",
+            "animation": "pan_right",
+            "caption": "真正世界第一台PC: Alto"
+        },
+        {
+            "timestamp_start": 12,
+            "timestamp_end": 18,
+            "image_prompt": "A mid-1970s corporate boardroom, businessmen in dark suits ignoring a glowing futuristic personal computer...",
+            "image_file": "scene_2.png",
+            "animation": "pan_left",
+            "caption": "高管瞎眼：这只是高级打印机"
+        },
+        {
+            "timestamp_start": 18,
+            "timestamp_end": 26,
+            "image_prompt": "Close up shot of a retro 1970s three-button computer mouse resting on a desk...",
+            "image_file": "scene_3.png",
+            "animation": "zoom_in",
+            "caption": "史上首个图形界面与鼠标"
+        },
+        {
+            "timestamp_start": 26,
+            "timestamp_end": 32,
+            "image_prompt": "PARC company logo or building",
+            "image_file": "real_xerox_parc.jpg",
+            "animation": "zoom_out_slow",
+            "caption": "诞生于传奇的PARC研究中心"
+        },
+        {
+            "timestamp_start": 32,
+            "timestamp_end": 38,
+            "image_prompt": "Real young Steve Jobs",
+            "image_file": "real_steve_jobs.jpg",
+            "animation": "zoom_in_slow",
+            "caption": "24岁的乔布斯当场看呆"
+        },
+        {
+            "timestamp_start": 38,
+            "timestamp_end": 48,
+            "image_prompt": "A very young, 24-year-old Steve Jobs, looking intensely at a glowing computer screen with an expression of sheer shock...",
+            "image_file": "scene_4.png",
+            "animation": "pan_right",
+            "caption": "激动得在走廊里尖叫！"
+        },
+        {
+            "timestamp_start": 48,
+            "timestamp_end": 66,
+            "image_prompt": "A modern, sleek workspace blending into a glowing, futuristic data stream...",
+            "image_file": "scene_5.png",
+            "animation": "zoom_out_slow",
+            "caption": "一次偷师，开启了PC时代"
+        }
+    ]
+}
