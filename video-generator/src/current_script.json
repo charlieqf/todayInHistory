@@ -1,0 +1,61 @@
+{
+  "audioUrl": "assets/job_2_narration.mp3",
+  "scenes": [
+    {
+      "durationInFrames": 197,
+      "text": "你能想象吗？如果当年的 Linux 不是免费的，今天的互联网可能根本不存在。",
+      "imagePrompt": "A cinematic close-up of a glowing high-tech server rack in a dark data center, blue and green LED lights flickering, shallow depth of field, 8k resolution, hyper-realistic.",
+      "animationUrl": "",
+      "imageUrl": "assets/job_2_scene_0.png"
+    },
+    {
+      "durationInFrames": 230,
+      "text": "1991年，21岁的林纳斯·托瓦兹在赫尔辛基的卧室里，写下了 Linux 的第一行代码。",
+      "imagePrompt": "A young Linus Torvalds with glasses sitting in a dimly lit 1990s bedroom, working on a bulky CRT monitor, messy desk with floppy disks, vintage aesthetic, cinematic lighting.",
+      "animationUrl": "",
+      "imageUrl": "assets/job_2_scene_1.png"
+    },
+    {
+      "durationInFrames": 230,
+      "text": "最初，Linux 禁止任何商业用途。这意味着它只能是一个极客的小众玩具，无法走向全球。",
+      "imagePrompt": "Conceptual art of digital code trapped inside a glowing glass cage, a 'No Commercial Use' sign in 90s font, dramatic shadows, cold blue lighting, 8k.",
+      "animationUrl": "",
+      "imageUrl": "assets/job_2_scene_2.png"
+    },
+    {
+      "durationInFrames": 263,
+      "text": "1992年2月1日，林纳斯做出了改变历史的决定：正式将许可协议更换为 GPL 协议。",
+      "imagePrompt": "Close-up of a mechanical keyboard being typed on, the screen shows 'GPL License' in green terminal text, 90s computer interface style, dramatic cinematic top-down shot.",
+      "animationUrl": "",
+      "imageUrl": "assets/job_2_scene_3.png"
+    },
+    {
+      "durationInFrames": 263,
+      "text": "这一举动，让 Linux 彻底拥抱了自由软件精神，并与 GNU 计划的强大工具完美合体。",
+      "imagePrompt": "Two glowing 3D puzzle pieces labeled 'Linux' and 'GNU' merging together in a digital void, neon light trails, epic scale, futuristic atmosphere.",
+      "animationUrl": "",
+      "imageUrl": "assets/job_2_scene_4.png"
+    },
+    {
+      "durationInFrames": 230,
+      "text": "任何人都可以查看、修改并分享代码，全球成千上万的开发者开始为它疯狂贡献。",
+      "imagePrompt": "A world map made of interconnected glowing data points and lines, diverse silhouettes of developers reaching out to the map, digital network aesthetic, vibrant colors.",
+      "animationUrl": "",
+      "imageUrl": "assets/job_2_scene_5.png"
+    },
+    {
+      "durationInFrames": 263,
+      "text": "如今，从你的安卓手机到超级计算机，甚至是火星探测器，都在运行着 Linux。",
+      "imagePrompt": "A split-screen composition showing a modern smartphone, a massive supercomputer array, and a Mars rover on a red planet, high-tech documentary style, 8k resolution.",
+      "animationUrl": "",
+      "imageUrl": "assets/job_2_scene_6.png"
+    },
+    {
+      "durationInFrames": 198,
+      "text": "一个协议的改变，开启了开源软件的黄金时代。致敬林纳斯，致敬开源！",
+      "imagePrompt": "A heroic low-angle shot of the Linux Penguin mascot standing atop a mountain of technology hardware, sunrise in the background, cinematic lighting, epic finale.",
+      "animationUrl": "",
+      "imageUrl": "assets/job_2_scene_7.png"
+    }
+  ]
+}

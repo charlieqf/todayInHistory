@@ -5,27 +5,32 @@ import {
   Img,
   Sequence,
   useCurrentFrame,
-  useVideoConfig,
   staticFile,
   interpolate,
-  Easing,
 } from "remotion";
-import scriptData from "./day1_script_xerox_alto.json";
+import scriptData from "./current_script.json";
 
 export const MyComposition = () => {
-  const { fps } = useVideoConfig();
+  // Accumulate frames to determine exact start time for each scene sequentially
+  let runningFrame = 0;
+  const scenesWithFrames = scriptData.scenes.map((scene) => {
+    const startFrame = runningFrame;
+    const durationFrames = scene.durationInFrames || 150;
+    runningFrame += durationFrames;
+    return { ...scene, startFrame, durationFrames };
+  });
+
+  // Protect against empty audioUrl in testing
+  const audioSource = scriptData.audioUrl ? staticFile(scriptData.audioUrl) : null;
 
   return (
     <AbsoluteFill style={{ backgroundColor: "#000" }}>
-      <Audio src={staticFile("audio_track.mp3")} />
+      {audioSource && <Audio src={audioSource} />}
 
-      {scriptData.scenes.map((scene, index) => {
-        const startFrame = scene.timestamp_start * fps;
-        const durationFrames = (scene.timestamp_end - scene.timestamp_start) * Math.round(fps);
-
+      {scenesWithFrames.map((scene, index) => {
         return (
-          <Sequence key={index} from={startFrame} durationInFrames={durationFrames}>
-            <SceneContent scene={scene} index={index} />
+          <Sequence key={index} from={scene.startFrame} durationInFrames={scene.durationFrames}>
+            <SceneContent scene={scene} index={index} durationInFrames={scene.durationFrames} />
           </Sequence>
         );
       })}
@@ -33,32 +38,27 @@ export const MyComposition = () => {
   );
 };
 
-const SceneContent: React.FC<{ scene: any; index: number }> = ({ scene, index }) => {
+const SceneContent: React.FC<{ scene: any; index: number; durationInFrames: number }> = ({ scene, index, durationInFrames }) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const durationInFrames = (scene.timestamp_end - scene.timestamp_start) * fps;
 
-  // Basic "Ken Burns" variations
+  // Dynamic Ken Burns effect based on odd/even scene index (since JSON doesn't specify animation anymore)
   let scale = 1;
   let translateX = 0;
 
-  if (scene.animation === "zoom_in" || scene.animation === "zoom_in_slow") {
-    scale = interpolate(frame, [0, durationInFrames], [1, 1.15], {
-      extrapolateRight: "clamp",
-    });
-  } else if (scene.animation === "zoom_out_slow") {
-    scale = interpolate(frame, [0, durationInFrames], [1.15, 1], {
-      extrapolateRight: "clamp",
-    });
-  } else if (scene.animation === "pan_right") {
+  if (index % 4 === 0) {
+    // zoom_in
+    scale = interpolate(frame, [0, durationInFrames], [1, 1.15], { extrapolateRight: "clamp" });
+  } else if (index % 4 === 1) {
+    // pan_right
     scale = 1.1;
     translateX = interpolate(frame, [0, durationInFrames], [-50, 50]);
-  } else if (scene.animation === "pan_left") {
+  } else if (index % 4 === 2) {
+    // zoom_out
+    scale = interpolate(frame, [0, durationInFrames], [1.15, 1], { extrapolateRight: "clamp" });
+  } else {
+    // pan_left
     scale = 1.1;
     translateX = interpolate(frame, [0, durationInFrames], [50, -50]);
-  } else {
-    // Default fallback
-    scale = interpolate(frame, [0, durationInFrames], [1, 1.05]);
   }
 
   // Fade in text
@@ -68,23 +68,27 @@ const SceneContent: React.FC<{ scene: any; index: number }> = ({ scene, index })
 
   return (
     <AbsoluteFill style={{ overflow: "hidden", justifyContent: "center", alignItems: "center" }}>
-      <Img
-        src={staticFile(scene.image_file)}
-        style={{
-          minWidth: "100%",
-          minHeight: "100%",
-          objectFit: "cover",
-          transform: `scale(${scale}) translateX(${translateX}px)`,
-          // Apply a unified "vintage documentary" look to bridge AI vs Real photos
-          filter: "sepia(0.3) contrast(1.1) brightness(0.9) grayscale(0.2)",
-        }}
-      />
+      {scene.imageUrl && (
+        <Img
+          src={staticFile(scene.imageUrl)}
+          style={{
+            minWidth: "100%",
+            minHeight: "100%",
+            objectFit: "cover",
+            transform: `scale(${scale}) translateX(${translateX}px)`,
+            filter: (scriptData as any).filterStyle || "sepia(0.3) contrast(1.1) brightness(0.9) grayscale(0.2)",
+          }}
+        />
+      )}
+
       {/* Caption Overlay */}
       <AbsoluteFill
         style={{
           justifyContent: "flex-end",
           alignItems: "center",
           paddingBottom: "15%",
+          paddingLeft: "5%",
+          paddingRight: "5%",
         }}
       >
         <div
@@ -93,7 +97,7 @@ const SceneContent: React.FC<{ scene: any; index: number }> = ({ scene, index })
             padding: "20px 40px",
             borderRadius: "20px",
             color: "white",
-            fontSize: "48px",
+            fontSize: "42px",
             fontFamily: "sans-serif",
             fontWeight: "bold",
             textAlign: "center",
@@ -102,7 +106,7 @@ const SceneContent: React.FC<{ scene: any; index: number }> = ({ scene, index })
             border: "2px solid rgba(255,255,255,0.2)"
           }}
         >
-          {scene.caption}
+          {scene.text}
         </div>
       </AbsoluteFill>
     </AbsoluteFill>
