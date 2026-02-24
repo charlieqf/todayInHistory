@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT历史上的今天 - 数据库素材控制台</title>
+    <title>视频矩阵中台 - 素材数据库</title>
     <style>
         :root {
             --bg-body: #f7f9fc;
@@ -82,6 +82,54 @@
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
             border: 1px solid var(--border-color);
             flex-wrap: wrap;
+        }
+
+        /* Channel Tab Bar */
+        .channel-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .channel-tab {
+            padding: 6px 16px;
+            border-radius: 9999px;
+            border: 2px solid var(--border-color);
+            background: var(--bg-card);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .channel-tab:hover {
+            border-color: var(--accent);
+        }
+
+        .channel-tab.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .channel-label {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .nav-header-link {
+            font-size: 13px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 6px 14px;
+            border: 1px solid var(--accent);
+            border-radius: 6px;
         }
 
         .control-group {
@@ -416,6 +464,11 @@
         </div>
     </div>
 
+    <!-- Channel Tab Bar -->
+    <div class="channel-tabs" id="channelTabs">
+        <span class="channel-tab active" data-channel="" onclick="selectChannel(this, '')">📋 全部频道</span>
+    </div>
+
     <div class="table-container">
         <table>
             <thead>
@@ -423,6 +476,7 @@
                     <th class="col-id">#ID</th>
                     <th class="col-score">爆款指数</th>
                     <th class="col-date">日历月/日</th>
+                    <th class="col-category">频道</th>
                     <th class="col-category">分类</th>
                     <th class="col-date">事件年份</th>
                     <th class="col-title">推荐短视频标题</th>
@@ -434,7 +488,7 @@
             </thead>
             <tbody id="tableBody">
                 <tr>
-                    <td colspan="10" class="loading">正在查询数据库...</td>
+                    <td colspan="11" class="loading">正在查询数据库...</td>
                 </tr>
             </tbody>
         </table>
@@ -442,20 +496,50 @@
 
     <script>
         let searchTimeout;
+        let currentChannelFilter = '';
 
         function debounceFetch() {
             clearTimeout(searchTimeout);
             searchTimeout = setTimeout(fetchEvents, 300);
         }
 
+        async function loadChannelTabs() {
+            try {
+                const res = await fetch('/api/channels');
+                const channels = await res.json();
+                const container = document.getElementById('channelTabs');
+                channels.forEach(ch => {
+                    const tab = document.createElement('span');
+                    tab.className = 'channel-tab';
+                    tab.dataset.channel = ch.id;
+                    tab.textContent = ch.display_name;
+                    tab.style.borderColor = ch.color_accent;
+                    tab.onclick = function () { selectChannel(this, ch.id); };
+                    container.appendChild(tab);
+                });
+            } catch (e) { console.error('Failed to load channels', e); }
+        }
+
+        function selectChannel(tab, channelId) {
+            document.querySelectorAll('.channel-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            currentChannelFilter = channelId;
+            document.getElementById('categorySelect').value = ''; // Reset category filter
+            fetchStats();
+            fetchEvents();
+        }
+
         async function fetchStats() {
             try {
-                const res = await fetch('/api/stats');
+                const params = new URLSearchParams({ channel: currentChannelFilter });
+                const res = await fetch(`/api/stats?${params}`);
                 const data = await res.json();
 
                 document.getElementById('totalCountText').innerText = `已入库 ${data.total} 条事件`;
 
                 const catSelect = document.getElementById('categorySelect');
+                // Keep the first option (All Categories)
+                catSelect.innerHTML = '<option value="">全部分类</option>';
                 data.categories.forEach(cat => {
                     const opt = document.createElement('option');
                     opt.value = cat;
@@ -473,17 +557,17 @@
             const category = document.getElementById('categorySelect').value;
             const sort = document.getElementById('sortSelect').value;
 
-            const params = new URLSearchParams({ search, month, category, sort });
+            const params = new URLSearchParams({ search, month, category, sort, channel: currentChannelFilter });
 
             const tbody = document.getElementById('tableBody');
-            tbody.innerHTML = '<tr><td colspan="10" class="loading">查询中...</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="11" class="loading">查询中...</td></tr>';
 
             try {
                 const res = await fetch(`/api/events?${params}`);
                 const events = await res.json();
 
                 if (events.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="10" class="loading">没有匹配的数据</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="11" class="loading">没有匹配的数据</td></tr>';
                     return;
                 }
 
@@ -503,6 +587,9 @@
                             <strong>${e.month}月${e.day}日</strong>
                         </td>
                         <td class="col-category">
+                            ${e.channel_name ? `<span class="channel-label" style="background: ${e.channel_color}22; color: ${e.channel_color}; border: 1px solid ${e.channel_color}44;">${e.channel_name}</span>` : ''}
+                        </td>
+                        <td class="col-category">
                             <span class="badge">${e.category || '未分类'}</span>
                         </td>
                         <td class="col-date">${e.year}年</td>
@@ -519,16 +606,17 @@
                             <span class="platform-icon xiaohongshu ${isPub('xiaohongshu')}" title="小红书">红</span>
                             <span class="platform-icon youtube ${isPub('youtube')}" title="YouTube">Y</span>
                         </td>
-                        <td class="col-category">
+                        <td class="col-category" style="display: flex; gap: 0.5rem;">
                             ${e.pipeline_status === 'UNSTARTED'
-                            ? `<button class="btn-action" onclick="createPipelineJob(${e.id})">💡 下发生产(Job)</button>`
-                            : `<a href="/pipeline/${e.job_id}" class="btn-action" style="border-color: #10b981; color: #10b981; text-decoration: none; display: inline-block;">👁️ 跟踪节点</a>`
+                            ? `<button class="btn-action" onclick="createPipelineJob(${e.id})">💡 下发Job</button>`
+                            : `<a href="/pipeline/${e.job_id}" class="btn-action" style="border-color: #10b981; color: #10b981; text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">👁️ 跟踪</a>
+                               <button class="btn-action" onclick="runFullPipelineFromList(event, ${e.job_id})" style="border-color: #ef4444; color: #ef4444; font-weight: bold;" title="一键从头挂机生成视频">🚀 自动化</button>`
                         }
                         </td>
                     </tr>
                 `}).join('');
             } catch (e) {
-                tbody.innerHTML = `<tr><td colspan="10" class="loading" style="color: red;">请求失败: ${e.message}</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="11" class="loading" style="color: red;">请求失败: ${e.message}</td></tr>`;
             }
         }
 
@@ -537,7 +625,7 @@
                 const res = await fetch('/api/create_job', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ event_id: eventId })
+                    body: JSON.stringify({ event_id: eventId, channel_id: currentChannelFilter || 1 })
                 });
                 const data = await res.json();
                 if (data.error) throw new Error(data.error);
@@ -547,7 +635,28 @@
             }
         }
 
+        async function runFullPipelineFromList(evt, jobId) {
+            const btn = evt.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = "⏳..";
+            btn.disabled = true;
+
+            try {
+                const res = await fetch(`/api/jobs/${jobId}/run_all`, { method: 'POST' });
+                const data = await res.json();
+                if (data.error) throw new Error(data.error);
+                alert(`Job #${jobId} 视频已成功生成！`);
+            } catch (e) {
+                alert(`Job #${jobId} 跑路失败:\n` + e.message);
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                fetchEvents(); // Refresh status indicators
+            }
+        }
+
         // Init
+        loadChannelTabs();
         fetchStats();
         fetchEvents();
     </script>

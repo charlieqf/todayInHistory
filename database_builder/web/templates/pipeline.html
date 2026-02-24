@@ -183,7 +183,13 @@
             <h1>🎬 工作流调度 / Pipeline Job #{{ job.id }}</h1>
             <p style="margin-top: 0.5rem; font-weight: 600; color: #334155;">{{ job.title }} ({{ job.year }}年)</p>
         </div>
-        <div class="badge">Status: {{ job.status }}</div>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+            <div class="badge">Status: {{ job.status }}</div>
+            <button onclick="runNode('run_all')"
+                style="background: #ef4444; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(239, 68, 68, 0.3); transition: all 0.2s;">
+                🚀 一键接管全自动生产流水线
+            </button>
+        </div>
     </div>
 
     <!-- PIPELINE VISUALIZATION -->
@@ -323,7 +329,23 @@
 
     <script>
         async function runNode(nodeName) {
-            if (nodeName === 'enrich') {
+            if (nodeName === 'run_all') {
+                try {
+                    const btn = event.target;
+                    btn.innerHTML = "⏳ V8流水线轰鸣中 (通常需要3-5分钟)...";
+                    btn.disabled = true;
+                    btn.style.background = "#94a3b8";
+
+                    const res = await fetch(`/api/jobs/{{job.id}}/run_all`, { method: 'POST' });
+                    const data = await res.json();
+                    if (data.error) throw new Error(data.error);
+                    alert("🎉 全自流产线执行完毕！视频已准备就绪！");
+                    window.location.reload();
+                } catch (e) {
+                    alert('流水线崩溃: ' + e.message);
+                    window.location.reload();
+                }
+            } else if (nodeName === 'enrich') {
                 const prompt = document.getElementById('enrichPrompt').value;
                 if (!prompt) return alert('请输入挖掘要求');
 
@@ -339,6 +361,54 @@
                     window.location.reload();
                 } catch (e) {
                     alert('挖掘失败: ' + e.message);
+                }
+            } else if (nodeName === 'script') {
+                try {
+                    // Show loading state
+                    document.getElementById('scriptJson').value = "正在呼叫 Gemini 模型编剧，请稍候 (可能需要 15-30 秒)...";
+
+                    const res = await fetch(`/api/jobs/{{job.id}}/run_script`, { method: 'POST' });
+                    const data = await res.json();
+                    if (data.error) throw new Error(data.error);
+                    alert("剧本生成成功！");
+                    window.location.reload();
+                } catch (e) {
+                    alert('剧本生成失败: ' + e.message);
+                    document.getElementById('scriptJson').value = "{{ job.script_json or '' }}";
+                }
+            } else if (nodeName === 'assets') {
+                try {
+                    // Show loading state
+                    const btn = event.target;
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = "⏳ 正在生成语音与图片资产，请稍候...";
+                    btn.disabled = true;
+
+                    const res = await fetch(`/api/jobs/{{job.id}}/generate_assets`, { method: 'POST' });
+                    const data = await res.json();
+                    if (data.error) throw new Error(data.error);
+                    alert("资产合成成功！");
+                    window.location.reload();
+                } catch (e) {
+                    alert('资产合成失败: ' + e.message);
+                    window.location.reload();
+                }
+            } else if (nodeName === 'render') {
+                try {
+                    // Show loading state
+                    const btn = event.target;
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = "⏳ 正在驱动 Remotion 渲染集群... (通常需要1-3分钟)";
+                    btn.disabled = true;
+
+                    const res = await fetch(`/api/jobs/{{job.id}}/render`, { method: 'POST' });
+                    const data = await res.json();
+                    if (data.error) throw new Error(data.error);
+                    alert("视频渲染完毕，物理实体落盘成功！");
+                    window.location.reload();
+                } catch (e) {
+                    alert('视频渲染崩溃: ' + e.message);
+                    window.location.reload();
                 }
             } else if (nodeName === 'publish') {
                 const platform = document.getElementById('pubPlatform').value;

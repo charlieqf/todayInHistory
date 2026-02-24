@@ -1,6 +1,8 @@
 import os
 import sys
 import json
+import time
+from datetime import datetime, timedelta
 from google import genai
 from google.genai import types
 from pydantic import BaseModel, Field
@@ -29,84 +31,82 @@ class EventList(BaseModel):
 
 # -------------------------------------------------------------
 
-def chunk_text(text, max_chars=100000):
-    """Chunks the huge Wikipedia HTML/text into pieces for Gemini (which handles large contexts)."""
-    lines = text.split('\n')
-    chunks = []
-    current_chunk = []
-    current_len = 0
-    for line in lines:
-        if current_len + len(line) > max_chars and current_chunk:
-            chunks.append("\n".join(current_chunk))
-            current_chunk = []
-            current_len = 0
-        current_chunk.append(line)
-        current_len += len(line)
-    if current_chunk:
-        chunks.append("\n".join(current_chunk))
-    return chunks
-
-def process_wikipedia_with_gemini(target_events=200):
-    # Using the exact API key the user provided
-    api_key = "AIzaSyCUHdikBUmurUge__gob5Ch1ViUiCrjS6A"
+def process_dates_with_gemini(start_month=3, start_day=6, days_to_fetch=30):
+    from dotenv import load_dotenv
+    load_dotenv()
+    api_key = os.environ.get("GEMINI_API_KEY")
+    if not api_key:
+        print("Error: GEMINI_API_KEY not found. Set it in .env")
+        return
+        
     client = genai.Client(api_key=api_key)
     storage.init_db()
 
-    with open(RAW_DATA_FILE, "r", encoding="utf-8") as f:
-        raw_data = json.load(f)
-
     total_inserted = 0
 
-    print("🤖 Starting Gemini Pipeline to process raw HTML -> SQLite Events...")
+    print(f"🤖 Starting Date-Based Gemini Pipeline (Target: {days_to_fetch} days)...")
     
-    for page_title, full_text in raw_data.items():
-        print(f"\n📖 Processing Wiki Page: {page_title}...")
-        chunks = chunk_text(full_text, max_chars=100000) 
+    current_date = datetime(2024, start_month, start_day) # Year doesn't matter for the loop logic
+    
+    for i in range(days_to_fetch):
+        month = current_date.month
+        day = current_date.day
+        date_str = f"{month}月{day}日"
+        print(f"\n📅 Processing Date: {date_str} ({i+1}/{days_to_fetch})...")
         
-        for i, chunk in enumerate(chunks):
-            if total_inserted >= target_events: 
-                print(f"\n[!] Reached target of {target_events} events. Stopping extraction.")
-                print(f"🎉 Process Complete! Total DB Grown By: +{total_inserted} events.")
-                return
-
-            print(f"  -> Extrating events from chunk {i+1}/{len(chunks)}...")
-            prompt = f"""
-            You are an IT History archivist. Extract factual computer/IT history events from the following Wikipedia text.
-            Ignore noise, non-IT news, and items missing an EXACT month and day. Provide a catchy Chinese title and Chinese summary for each event to be used in videos.
-            
-            Text:
-            {chunk}
-            """
-            
+        prompt = f"""
+        You are an elite IT History archivist. Provide exactly 3 to 5 of the most important IT, Computer, Hacker, or Web historical events that happened precisely on this calendar date: {month}-{day} (Month {month}, Day {day}).
+        
+        Rules:
+        1. The month and day MUST match {month}-{day}.
+        2. Focus on world-changing tech releases, legendary company foundings, major hacks, or classic video game console launches.
+        3. Provide the specific year.
+        4. Provide a highly catchy Chinese title (for short videos).
+        5. Provide a strictly factual Chinese summary.
+        6. Provide an appropriate category (e.g., Hardware, Software, Hacker, Internet, Game).
+        """
+        
+        max_retries = 5
+        for attempt in range(max_retries):
             try:
-                # Using google-genai structured outputs
                 response = client.models.generate_content(
                     model='gemini-3-flash-preview',
                     contents=prompt,
                     config=types.GenerateContentConfig(
                         response_mime_type="application/json",
                         response_schema=EventList,
-                        temperature=0.1,
+                        temperature=0.3,
                     ),
                 )
                 
-                # Gemini returns the Pydantic model directly via parsed JSON response
                 extracted_data = json.loads(response.text)
                 extracted_events = extracted_data.get('events', [])
                 
                 if not extracted_events:
-                    print("     ⚠️ No valid events found in this chunk.")
-                    continue
+                    print("     ⚠️ No valid events found for this date.")
+                    break
                     
-                inserted, duplicates = storage.insert_events(extracted_events, source=f"wikipedia/{page_title}")
-                print(f"     ✅ Found {len(extracted_events)} events -> {inserted} inserted, {duplicates} duplicate skipped.")
+                inserted, duplicates = storage.insert_events(extracted_events, source=f"gemini_date/{month}_{day}")
+                print(f"     ✅ Found {len(extracted_events)} events for {date_str} -> {inserted} inserted, {duplicates} duplicate skipped.")
                 total_inserted += inserted
-                
+                break
+
             except Exception as e:
-                print(f"     ❌ Gemini API Error on chunk {i+1}: {e}")
+                error_msg = str(e)
+                print(f"     ❌ Gemini API Error for {date_str} (Attempt {attempt+1}/{max_retries}): {error_msg}")
+                if attempt < max_retries - 1:
+                    sleep_time = 15 * (2 ** attempt)
+                    print(f"     ⏳ Sleeping for {sleep_time}s before retrying...")
+                    time.sleep(sleep_time)
+                else:
+                    print(f"     ☠️ Max retries reached for {date_str}. Skipping to next date.")
+                    
+        # Move to the next day
+        current_date += timedelta(days=1)
+        # Gentle pacing between days to respect API rates
+        time.sleep(5)
                 
     print(f"\n🎉 Fully Complete! Total DB Grown By: +{total_inserted} events.")
 
 if __name__ == "__main__":
-    # The user wants to build up the database to 200 events.
-    process_wikipedia_with_gemini(target_events=200)
+    process_dates_with_gemini(start_month=3, start_day=6, days_to_fetch=30)

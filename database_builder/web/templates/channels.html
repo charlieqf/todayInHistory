@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>频道管理 - 视频矩阵中台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #0a0e17;
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a1f2e 0%, #0d1117 100%);
+            padding: 24px 40px;
+            border-bottom: 1px solid #1e293b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            color: #f8fafc;
+        }
+
+        .header h1 span {
+            color: #6b7280;
+            font-weight: 400;
+            font-size: 14px;
+            margin-left: 12px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .nav-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #f8fafc;
+            background: rgba(99, 102, 241, 0.15);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 20px;
+        }
+
+        .channel-card {
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .channel-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 16px 16px 0 0;
+        }
+
+        .channel-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .card-name {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .card-slug {
+            font-size: 12px;
+            color: #6b7280;
+            font-family: monospace;
+            background: #1e293b;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .card-stats {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #6b7280;
+            text-transform: uppercase;
+        }
+
+        .card-config {
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        .config-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .config-label {
+            color: #6b7280;
+            min-width: 60px;
+        }
+
+        .config-value {
+            color: #e2e8f0;
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-edit {
+            background: rgba(99, 102, 241, 0.15);
+            color: #818cf8;
+        }
+
+        .btn-edit:hover {
+            background: rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            padding: 12px 24px;
+            font-size: 15px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 32px;
+        }
+
+        .modal h2 {
+            margin-bottom: 24px;
+            font-size: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid #374151;
+            background: #1e293b;
+            color: #e2e8f0;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: monospace;
+            font-size: 13px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn-cancel {
+            background: #374151;
+            color: #e2e8f0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>📺 频道管理 <span>视频矩阵中台</span></h1>
+        <div class="nav-links">
+            <a href="/">素材库</a>
+            <a href="/channels" class="active">频道管理</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+            <p style="color:#6b7280;">管理视频系列的提示词、TTS 音色和视觉风格。新增或编辑频道后，流水线将自动使用对应配置。</p>
+            <button class="btn btn-primary" onclick="openCreateModal()">+ 新建频道</button>
+        </div>
+
+        <div class="channels-grid" id="channelsGrid">
+            <div style="color:#6b7280; padding:40px; text-align:center;">加载中...</div>
+        </div>
+    </div>
+
+    <!-- Edit/Create Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <h2 id="modalTitle">编辑频道</h2>
+            <input type="hidden" id="editChannelId" />
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>频道名称</label>
+                    <input type="text" id="fieldDisplayName" placeholder="💻 IT历史上的今天" />
+                </div>
+                <div class="form-group">
+                    <label>Slug (唯一标识)</label>
+                    <input type="text" id="fieldSlug" placeholder="it_history" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>System Prompt (脚本生成提示词)</label>
+                <textarea id="fieldSystemPrompt" placeholder="You are an elite scriptwriter..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Review Prompt (自审提示词，留空则用通用默认)</label>
+                <textarea id="fieldReviewPrompt" style="min-height:80px;" placeholder="留空则使用默认审阅提示词"></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>TTS 音色</label>
+                    <select id="fieldTtsVoice">
+                        <option value="zh-CN-YunxiNeural">YunxiNeural (极客男声)</option>
+                        <option value="zh-CN-YunjianNeural">YunjianNeural (沉稳播音)</option>
+                        <option value="zh-CN-XiaoyiNeural">XiaoyiNeural (活泼女声)</option>
+                        <option value="zh-CN-XiaochenNeural">XiaochenNeural (国风女声)</option>
+                        <option value="zh-CN-YunyangNeural">YunyangNeural (新闻主播)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>主题色</label>
+                    <input type="color" id="fieldColorAccent" value="#00d4ff" style="height:40px;" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>CSS 滤镜 (Remotion 视频画面风格)</label>
+                <input type="text" id="fieldCssFilter" placeholder="sepia(0.3) contrast(1.1) brightness(0.9)" />
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn btn-cancel" onclick="closeModal()">取消</button>
+                <button class="btn btn-primary" onclick="saveChannel()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allChannels = [];
+
+        async function loadChannels() {
+            const res = await fetch('/api/channels');
+            allChannels = await res.json();
+            renderChannels();
+        }
+
+        function renderChannels() {
+            const grid = document.getElementById('channelsGrid');
+            if (!allChannels.length) {
+                grid.innerHTML = '<div style="color:#6b7280; padding:40px; text-align:center;">暂无频道，点击右上角新建</div>';
+                return;
+            }
+            grid.innerHTML = allChannels.map(ch => `
+        <div class="channel-card" style="--accent: ${ch.color_accent}" onclick="openEditModal(${ch.id})">
+            <div class="card-header">
+                <div class="card-name">${ch.display_name}</div>
+                <div class="card-slug">${ch.slug}</div>
+            </div>
+            <div class="card-stats">
+                <div class="stat"><div class="stat-value">${ch.event_count || 0}</div><div class="stat-label">素材</div></div>
+                <div class="stat"><div class="stat-value">${ch.job_count || 0}</div><div class="stat-label">视频任务</div></div>
+            </div>
+            <div class="card-config">
+                <div class="config-row"><span class="config-label">🎙️ 音色</span><span class="config-value">${ch.tts_voice}</span></div>
+                <div class="config-row"><span class="config-label">🎨 滤镜</span><span class="config-value">${ch.css_filter}</span></div>
+            </div>
+            <div style="margin-top:12px;"><button class="btn btn-edit" onclick="event.stopPropagation(); openEditModal(${ch.id})">✏️ 编辑配置</button></div>
+        </div>
+    `).join('');
+        }
+
+        function openCreateModal() {
+            document.getElementById('modalTitle').textContent = '新建频道';
+            document.getElementById('editChannelId').value = '';
+            document.getElementById('fieldDisplayName').value = '';
+            document.getElementById('fieldSlug').value = '';
+            document.getElementById('fieldSystemPrompt').value = '';
+            document.getElementById('fieldReviewPrompt').value = '';
+            document.getElementById('fieldTtsVoice').value = 'zh-CN-YunxiNeural';
+            document.getElementById('fieldColorAccent').value = '#00d4ff';
+            document.getElementById('fieldCssFilter').value = 'sepia(0.3) contrast(1.1) brightness(0.9) grayscale(0.2)';
+            document.getElementById('fieldSlug').disabled = false;
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function openEditModal(id) {
+            const ch = allChannels.find(c => c.id === id);
+            if (!ch) return;
+            document.getElementById('modalTitle').textContent = `编辑：${ch.display_name}`;
+            document.getElementById('editChannelId').value = ch.id;
+            document.getElementById('fieldDisplayName').value = ch.display_name;
+            document.getElementById('fieldSlug').value = ch.slug;
+            document.getElementById('fieldSlug').disabled = true;
+            document.getElementById('fieldSystemPrompt').value = ch.system_prompt;
+            document.getElementById('fieldReviewPrompt').value = ch.review_prompt || '';
+            document.getElementById('fieldTtsVoice').value = ch.tts_voice;
+            document.getElementById('fieldColorAccent').value = ch.color_accent;
+            document.getElementById('fieldCssFilter').value = ch.css_filter;
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
+
+        async function saveChannel() {
+            const id = document.getElementById('editChannelId').value;
+            const data = {
+                slug: document.getElementById('fieldSlug').value,
+                display_name: document.getElementById('fieldDisplayName').value,
+                system_prompt: document.getElementById('fieldSystemPrompt').value,
+                review_prompt: document.getElementById('fieldReviewPrompt').value,
+                tts_voice: document.getElementById('fieldTtsVoice').value,
+                css_filter: document.getElementById('fieldCssFilter').value,
+                color_accent: document.getElementById('fieldColorAccent').value,
+            };
+
+            const url = id ? `/api/channels/${id}` : '/api/channels';
+            const method = id ? 'PUT' : 'POST';
+
+            const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+            const result = await res.json();
+
+            if (result.success) {
+                closeModal();
+                loadChannels();
+            } else {
+                alert('Error: ' + (result.error || 'Unknown'));
+            }
+        }
+
+        document.getElementById('modalOverlay').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeModal(); });
+        loadChannels();
+    </script>
+</body>
+
+</html>
