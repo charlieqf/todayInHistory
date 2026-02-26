@@ -21,11 +21,33 @@ def run_full_pipeline(job_id: int):
     print(f"🚀 [Orchestrator] Launching Full Pipeline for Job #{job_id}")
     print(f"=======================================================\n")
     
-    # Node 2: Script Generation
-    print(">>> STEP 1: AI Script Generation")
-    if not run_script_generation(job_id):
-        print(f"❌ [Orchestrator] Pipeline Halted: Script Generation Failed for Job {job_id}")
-        return False
+    # 0. Check Job Channel to determine branching
+    import sqlite3
+    DB_PATH = os.path.join(SCRIPT_DIR, "..", "..", "data", "history_events.db")
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    job_info = conn.execute('''
+        SELECT ch.slug 
+        FROM video_jobs vj 
+        LEFT JOIN channels ch ON vj.channel_id = ch.id 
+        WHERE vj.id = ?
+    ''', (job_id,)).fetchone()
+    conn.close()
+    
+    channel_slug = job_info['slug'] if job_info else ''
+    
+    # Node 2: Script Generation (or Visual Mapping for long-form content)
+    print(f">>> STEP 1: AI Script/Visual Generation (Channel: {channel_slug})")
+    
+    if channel_slug == 'stock_replay':
+        from node_visual_mapper import run_visual_mapping
+        if not run_visual_mapping(job_id, words_per_chunk=400):
+            print(f"❌ [Orchestrator] Pipeline Halted: Visual Mapping Failed for Job {job_id}")
+            return False
+    else:
+        if not run_script_generation(job_id):
+            print(f"❌ [Orchestrator] Pipeline Halted: Script Generation Failed for Job {job_id}")
+            return False
         
     print("\n>>> STEP 2: Asset Synthesis (Audio & Vision)")
     # Node 3: Audio (TTS) & Image Generation

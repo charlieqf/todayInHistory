@@ -82,9 +82,9 @@ async def synthesize_assets_for_job(job_id: int):
     
     conn = get_db_connection()
     try:
-        # JOIN with channels to get TTS voice and CSS filter config
+        # JOIN with channels to get TTS voice, CSS filter, and optional BGM config
         job = conn.execute('''
-            SELECT vj.*, ch.tts_voice, ch.css_filter, ch.display_name as ch_display_name
+            SELECT vj.*, ch.tts_voice, ch.css_filter, ch.display_name as ch_display_name, ch.audio_bgm
             FROM video_jobs vj
             LEFT JOIN channels ch ON vj.channel_id = ch.id
             WHERE vj.id = ?
@@ -109,7 +109,11 @@ async def synthesize_assets_for_job(job_id: int):
 
         # Inject the channel's CSS filter into the script JSON for Remotion
         script_data['filterStyle'] = css_filter
-
+        
+        # Inject the channel's background music into the script JSON
+        if job['audio_bgm']:
+            script_data['bgmUrl'] = job['audio_bgm']
+            
         # 1. Aggregate Full Audio Script for TTS
         print(f"🎤 [Audio] Aggregating narration for {len(scenes)} scenes...")
         full_narration = " ".join([scene.get('text', '') for scene in scenes])

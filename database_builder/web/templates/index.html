@@ -412,14 +412,16 @@
             <h1>历史上的今天 · 数据库控制台</h1>
             <p>基于本地 SQLite 构建的结构化视频素材库</p>
         </div>
-        <div class="stats-badge" id="totalCountBadge">
-            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4">
-                </path>
-            </svg>
-            <span id="totalCountText">读取中...</span>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+            <a href="/channels" class="nav-header-link">⚙️ 频道库配置</a>
+            <div class="stats-badge" id="totalCountBadge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M4 7v10c0 2.21 3.58 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.58 4 8 4s8-1.79 8-4M4 7c0-2.21 3.58-4 8-4s8 1.79 8 4m0 5c0 2.21-3.58 4-8 4s-8-1.79-8-4">
+                    </path>
+                </svg>
+                <span id="totalCountText">载入中...</span>
+            </div>
         </div>
     </div>
 
@@ -575,6 +577,26 @@
                     const platforms = e.published_platforms ? e.published_platforms.split(',') : [];
                     const isPub = (p) => platforms.includes(p) ? 'published' : '';
 
+                    // Strict component routing based on series logic. 
+                    // We don't defensively fallback; we actively branch to the right UI representation.
+                    let dateColumnHTML = '';
+                    if (e.channel_slug === 'it_history') {
+                        dateColumnHTML = `<strong>${e.month}月${e.day}日</strong>`;
+                    } else if (e.channel_slug === 'stock_replay') {
+                        dateColumnHTML = `<span style="font-size:1.4em;" title="主题驱动">📈 妖股</span>`;
+                    } else if (e.channel_slug === 'ancient_china') {
+                        dateColumnHTML = `<span style="font-size:1.4em;" title="主题驱动">🏮 史记</span>`;
+                    } else if (e.channel_slug === 'wealth_boss') {
+                        dateColumnHTML = `<span style="font-size:1.4em;" title="主题驱动">💰 商业</span>`;
+                    } else if (e.channel_slug === 'mystery') {
+                        dateColumnHTML = `<span style="font-size:1.4em;" title="主题驱动">👻 谜团</span>`;
+                    } else if (e.channel_slug === 'hardcore_bio') {
+                        dateColumnHTML = `<span style="font-size:1.4em;" title="主题驱动">🔥 狠人</span>`;
+                    } else {
+                        // For any newly created custom topical channels
+                        dateColumnHTML = `<span style="font-size:1.4em;" title="主题驱动">📌 主题</span>`;
+                    }
+
                     return `
                     <tr>
                         <td class="col-id">${e.id}</td>
@@ -584,7 +606,7 @@
                             </span>
                         </td>
                         <td class="col-date">
-                            <strong>${e.month}月${e.day}日</strong>
+                            ${dateColumnHTML}
                         </td>
                         <td class="col-category">
                             ${e.channel_name ? `<span class="channel-label" style="background: ${e.channel_color}22; color: ${e.channel_color}; border: 1px solid ${e.channel_color}44;">${e.channel_name}</span>` : ''}

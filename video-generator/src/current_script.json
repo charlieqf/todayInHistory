@@ -1,61 +1,115 @@
 {
-  "audioUrl": "assets/job_2_narration.mp3",
+  "audioUrl": "assets/job_4_narration.mp3",
   "scenes": [
     {
-      "durationInFrames": 197,
-      "text": "你能想象吗？如果当年的 Linux 不是免费的，今天的互联网可能根本不存在。",
-      "imagePrompt": "A cinematic close-up of a glowing high-tech server rack in a dark data center, blue and green LED lights flickering, shallow depth of field, 8k resolution, hyper-realistic.",
-      "animationUrl": "",
-      "imageUrl": "assets/job_2_scene_0.png"
+      "durationInFrames": 1670,
+      "text": "各位听众，欢迎来到妖股传说与游资复盘。今天，我们将为您揭开中国股市一段最传奇、最令人血脉贲张的篇章。一个出身平凡的大学生，如何在八年间，将区区十万元本金，狂飙至惊人的十亿元！他，就是被无数短线客奉为圭臬的“赵老哥”——赵强。这并非神话，而是真真切切的财富密码，一场惊心动魄的资本游戏，一场关于勇气、智慧与纪律的极致演绎！1987年，浙江绍兴，一个普通的家庭，诞生了一个名叫赵强的男孩。谁能想到，这个日后叱咤风云的“股神”，在大学时代，不过是一个对数字和K线图充满好奇的毛头小子。那时的中国，改革开放的春风吹遍大地，经济的脉搏日益强劲，财富的故事在街头巷尾流传，股市，这个充满魔力的词汇，吸引着无数人的目光。",
+      "imagePrompt": "A split image or a scene transitioning. One side shows a young, thoughtful Chinese man (Zhao Qiang) in a university library or dorm room, with a subtle glow from a computer screen displaying K-line charts, his expression curious and focused. The other side or background shows a vibrant, bustling street scene in 1980s/early 2000s China, with people engaged in commerce, discussing, and signs of rapid economic growth. The overall mood is one of anticipation and the dawn of a new financial era. Cinematic, warm lighting, a sense of destiny and opportunity.",
+      "imageUrl": "assets/job_4_scene_0.png"
     },
     {
-      "durationInFrames": 230,
-      "text": "1991年，21岁的林纳斯·托瓦兹在赫尔辛基的卧室里，写下了 Linux 的第一行代码。",
-      "imagePrompt": "A young Linus Torvalds with glasses sitting in a dimly lit 1990s bedroom, working on a bulky CRT monitor, messy desk with floppy disks, vintage aesthetic, cinematic lighting.",
-      "animationUrl": "",
-      "imageUrl": "assets/job_2_scene_1.png"
+      "durationInFrames": 1670,
+      "text": "2007年，当无数人怀揣暴富梦想涌入股市时，赵强，这个浙江财经大学的学生，也用父母给的十万元，推开了那扇通往财富，也可能通往深渊的大门。十万元，对于一个大学生而言，无疑是一笔巨款，承载着家庭的希望，也承载着他自己对未来的憧憬。那时的他，或许只是想赚点零花钱，改善一下生活，却不知，命运的齿轮已悄然转动，一场波澜壮阔的史诗级冒险，正等待着他。股市如战场，新兵蛋子总是要先吃苦头。赵强入市不久，就遭遇了人生中的第一场“股灾洗礼”。2008年，全球金融海啸席卷而来，那是一场席卷全球的经济风暴，由美国次贷危机引发，雷曼兄弟的倒塌如同多米诺骨牌的第一张，瞬间击垮了全球金融市场的信心。恐慌情绪如同瘟疫般蔓延，华尔街哀嚎遍野，无数金融巨头摇摇欲坠。",
+      "imagePrompt": "A young, earnest Chinese university student (Zhao Qiang) sits in front of an early 2000s computer, a hopeful and slightly nervous expression on his face as he looks at a stock trading interface. A stack of cash (representing 100,000 RMB) is subtly visible nearby, symbolizing family hope. The scene then dramatically shifts to a montage or overlay: a chaotic, dark, and stormy Wall Street scene with panicked traders, flashing red news tickers, and the iconic, crumbling facade of Lehman Brothers, conveying global financial turmoil and impending doom. Cinematic, high contrast, a sense of hope turning to unease.",
+      "imageUrl": "assets/job_4_scene_1.png"
     },
     {
-      "durationInFrames": 230,
-      "text": "最初，Linux 禁止任何商业用途。这意味着它只能是一个极客的小众玩具，无法走向全球。",
-      "imagePrompt": "Conceptual art of digital code trapped inside a glowing glass cage, a 'No Commercial Use' sign in 90s font, dramatic shadows, cold blue lighting, 8k.",
-      "animationUrl": "",
-      "imageUrl": "assets/job_2_scene_2.png"
+      "durationInFrames": 1670,
+      "text": "A股市场自然也未能幸免，上证指数从6124点的高位，如同自由落体般，一路狂泻至1664点，跌幅超过70%！这不仅仅是数字的下跌，更是无数家庭财富的蒸发，无数梦想的破碎。市场一片狼藉，仿佛要吞噬掉所有人的希望。那段日子，对于一个初入股市的大学生而言，无疑是炼狱般的考验。每天打开交易软件，看到的都是满屏的绿色，账户里的数字在不断缩水，那种无力感、绝望感，足以击垮任何一个意志不坚定的人。身边的朋友、同学，甚至一些老股民，都在这场风暴中亏得血本无归，黯然离场。",
+      "imagePrompt": "A close-up on a young Chinese man (Zhao Qiang) with a look of intense despair and shock, his face illuminated by the harsh, ominous red glow of a computer screen displaying a plummeting stock chart, showing numbers dropping rapidly. In the background, blurred but visible, are other distressed individuals, perhaps older investors, in a chaotic, dimly lit trading room or internet cafe, reflecting widespread panic, financial ruin, and broken dreams. The atmosphere is heavy, almost suffocating, with a sense of utter devastation and hopelessness. Cinematic, dark, high-contrast lighting, emphasizing the 'sea of red'.",
+      "imageUrl": "assets/job_4_scene_2.png"
     },
     {
-      "durationInFrames": 263,
-      "text": "1992年2月1日，林纳斯做出了改变历史的决定：正式将许可协议更换为 GPL 协议。",
-      "imagePrompt": "Close-up of a mechanical keyboard being typed on, the screen shows 'GPL License' in green terminal text, 90s computer interface style, dramatic cinematic top-down shot.",
-      "animationUrl": "",
-      "imageUrl": "assets/job_2_scene_3.png"
+      "durationInFrames": 1670,
+      "text": "然而，令人难以置信的是，在长达十八个月的熊市绞杀中，当大多数人都在亏损时，赵强的十万元本金，竟然奇迹般地翻了一倍，达到了二十万元！这不仅仅是数字的增长，更是他初窥市场本质，学会如何在绝境中求生、甚至获利的第一课。他没有被恐慌吞噬，也没有盲目割肉离场。在那个市场情绪极度悲观，人人自危的时刻，他或许看到了别人看不到的希望，或许是凭借着初生牛犊不怕虎的勇气，在市场最绝望的时候，逆势而为，悄然布局。那时的他，像一只初生牛犊，虽然稚嫩，却已在风暴中，悄然磨砺出了一双洞察先机的眼睛，一颗冷静分析的心脏。他开始明白，真正的机会，往往隐藏在极度的恐慌之中。",
+      "imagePrompt": "A young Chinese man (Zhao Qiang) sits calmly in front of a computer screen, which now displays a subtle, hopeful green amidst the prevailing red of a bear market. His expression is one of quiet determination and nascent understanding, a stark contrast to the panic around him (which is now in the blurred background). A metaphorical 'young calf' could be subtly integrated, perhaps through a sense of youthful courage and clarity of vision in his posture. The lighting is still somewhat dim but has a subtle, emerging warmth, symbolizing hope and insight found in despair. Cinematic, focused, a sense of quiet triumph and strategic positioning.",
+      "imageUrl": "assets/job_4_scene_3.png"
     },
     {
-      "durationInFrames": 263,
-      "text": "这一举动，让 Linux 彻底拥抱了自由软件精神，并与 GNU 计划的强大工具完美合体。",
-      "imagePrompt": "Two glowing 3D puzzle pieces labeled 'Linux' and 'GNU' merging together in a digital void, neon light trails, epic scale, futuristic atmosphere.",
-      "animationUrl": "",
-      "imageUrl": "assets/job_2_scene_4.png"
+      "durationInFrames": 1670,
+      "text": "度过熊市的洗礼，2009年，A股市场终于迎来了曙光，一波反弹行情悄然启动。经历了炼狱般的考验，赵强不再是那个懵懂的大学生，他已经蜕变，开始有了自己的交易节奏和对市场的独特理解。他像一只蛰伏已久的猛兽，嗅到了空气中弥漫的生机。那一年，他的资金从二十万元，一跃而升至二百万元！短短一年，实现了十倍的惊人增长，完成了他最初的原始资本积累。这笔钱，成为了他日后征战沙场的坚实基础，也让他对自己的交易能力，有了前所未有的自信。然而，真正让他声名鹊起的，是2010年淘股吧的第五届“职业炒手杯”百万实盘赛。淘股吧，那是当时中国短线游资和民间高手的聚集地，一个充满硝烟与传奇的竞技场。无数网络股神在此一决高下，争夺“职业炒手”的无上荣耀。赵强以“赵老哥”的ID参赛，这个名字，带着一丝江湖气，也带着一丝神秘。在长达十五个月的赛程中，他将参赛资金从二百四十三万元，一路狂飙至一千五百四十七万元，最终问鼎冠军！",
+      "imagePrompt": "A dynamic, multi-panel image. One panel shows a confident, focused young Chinese man (Zhao Qiang) in front of a modern trading setup, screens displaying rapidly rising green numbers and complex charts, symbolizing his 10x growth and newfound confidence. Another panel shows a stylized trophy or championship medal, with '职业炒手杯' (Professional Trader Cup) prominently displayed, perhaps with the '淘股吧' (Taoguba) logo in the background, representing the intense online competition. The overall mood is one of accelerated achievement and rising prominence, with a subtle digital or network aesthetic. Cinematic, vibrant, a sense of breakthrough success.",
+      "imageUrl": "assets/job_4_scene_4.png"
     },
     {
-      "durationInFrames": 230,
-      "text": "任何人都可以查看、修改并分享代码，全球成千上万的开发者开始为它疯狂贡献。",
-      "imagePrompt": "A world map made of interconnected glowing data points and lines, diverse silhouettes of developers reaching out to the map, digital network aesthetic, vibrant colors.",
-      "animationUrl": "",
-      "imageUrl": "assets/job_2_scene_5.png"
+      "durationInFrames": 1670,
+      "text": "想象一下，那十五个月的日日夜夜，他面对的不仅仅是K线图和交易软件，更是来自全国各地顶尖高手的无声博弈。每一次买入，每一次卖出，都承载着巨大的压力和对市场判断的极致考验。他可能在某个夜晚，为了一个交易机会而彻夜不眠；也可能在某个交易日，因为一次精准的判断而心潮澎湃。最终，他以压倒性的优势，将所有竞争者甩在身后，问鼎冠军。从此，“赵老哥”这个名字，开始在游资圈和股民论坛中口口相传，成为一个神秘而又令人敬畏的存在。他的传奇，从线上走向了线下，从虚拟走向了现实。",
+      "imagePrompt": "A powerful, cinematic shot of 'Zhao Laoge' (a composed, intense Chinese man) in a dimly lit, high-tech trading room, surrounded by multiple glowing screens displaying complex K-line charts and data. His face shows a mix of deep concentration and slight exhaustion, hinting at sleepless nights and immense pressure. In the background, blurred but visible, are silhouettes of other competitive traders, symbolizing the 'silent game'. The scene culminates with a subtle, triumphant smile as he looks at a final result, with the '职业炒手杯' (Professional Trader Cup) trophy subtly gleaming. The atmosphere is tense, intellectual, and ultimately victorious, establishing his legendary status.",
+      "imageUrl": "assets/job_4_scene_5.png"
     },
     {
-      "durationInFrames": 263,
-      "text": "如今，从你的安卓手机到超级计算机，甚至是火星探测器，都在运行着 Linux。",
-      "imagePrompt": "A split-screen composition showing a modern smartphone, a massive supercomputer array, and a Mars rover on a red planet, high-tech documentary style, 8k resolution.",
-      "animationUrl": "",
-      "imageUrl": "assets/job_2_scene_6.png"
+      "durationInFrames": 1670,
+      "text": "此时的赵老哥，已经形成了他独树一帜的交易哲学。他深谙“打板”之道，即在股票强势涨停时果断买入。这并非盲目追涨，而是一种对市场情绪和资金合力的极致捕捉。他曾留下那句经典名言：“二板定龙头，一板能看出来个毛？”这句话，掷地有声，充满了对市场本质的深刻洞察。他认为，一只股票能否成为市场焦点，能否真正走出妖性，要看它能否走出第二个涨停板。第一个涨停板，可能是偶然，可能是试探，但第二个涨停板，则意味着市场资金的强烈认可，意味着这只股票已经具备了成为“龙头”的潜质。",
+      "imagePrompt": "A stylized, dynamic image depicting a stock chart with two prominent, consecutive green 'limit up' (涨停板) bars, visually emphasized to show strong upward momentum. A confident, insightful Chinese man (Zhao Laoge) stands in front of it, perhaps pointing or gesturing towards the second bar, with a knowing, almost defiant expression. Text bubbles or subtle visual cues could highlight the phrase '二板定龙头' (Two boards define the leader). The background is abstract, suggesting market data and financial energy, with a sense of sharp analysis and strategic insight into market psychology. Cinematic, sharp, symbolic, emphasizing his unique 'Da Ban' philosophy.",
+      "imageUrl": "assets/job_4_scene_6.png"
     },
     {
-      "durationInFrames": 198,
-      "text": "一个协议的改变，开启了开源软件的黄金时代。致敬林纳斯，致敬开源！",
-      "imagePrompt": "A heroic low-angle shot of the Linux Penguin mascot standing atop a mountain of technology hardware, sunrise in the background, cinematic lighting, epic finale.",
-      "animationUrl": "",
-      "imageUrl": "assets/job_2_scene_7.png"
+      "durationInFrames": 1670,
+      "text": "他只做龙头，不碰跟风。在市场热点爆发时，他总是能第一时间捕捉到最核心、最强势的那个标的，然后集中火力，重仓出击。他拥抱新题材，坚决抛弃旧题材。因为他深知，股市永远是炒作预期，炒作新鲜感，一旦题材炒作殆尽，资金便会迅速撤离，寻找下一个风口。他的每一次出手，都带着对市场情绪的精准把握和对资金流向的敏锐嗅觉，像一个精密计算的极客，又像一个嗅觉灵敏的猎手。他能够从纷繁复杂的市场信息中，迅速提炼出最有价值的信号，然后果断决策，毫不拖泥带水。这种极致的专注和执行力，正是他成功的关键。",
+      "imagePrompt": "A sleek, futuristic trading floor with a focused, intense Chinese man (Zhao Laoge) at the center, depicted as a 'keen hunter' or a 'precision geek'. His eyes are sharp, scanning multiple holographic screens displaying complex market data. One screen prominently highlights a 'leader' stock, glowing with vibrant green energy, while other 'follower' stocks appear muted or fading. Abstract visual lines represent rapid capital flow towards the leader, and new 'themes' emerging like bright signals. The overall aesthetic is high-tech, precise, and dynamic, emphasizing his ability to spot and seize new opportunities decisively. Cinematic, high-energy, symbolic of strategic focus.",
+      "imageUrl": "assets/job_4_scene_7.png"
+    },
+    {
+      "durationInFrames": 1670,
+      "text": "从2011年到2015年初，赵老哥的资金体量稳步增长，从一千五百万元，一路攀升至两亿元。这四年间，他不再是那个初出茅庐的少年，而是已经从千万级别的大户，晋升为亿级游资的佼佼者。他驾驭着巨额资金，在市场中纵横捭阖，每一次交易都牵动着无数人的神经。他可能经历了无数次惊心动魄的博弈，也可能在某个瞬间，感受到了巨大的压力和孤独。然而，他始终坚守着自己的交易原则，不断完善着自己的交易系统。然而，真正的“封神之战”，还在酝酿之中，一场足以载入中国股市史册的巅峰战役，即将打响！2015年4月，中国股市迎来了一场史无前例的超级牛市。那是一个全民炒股的时代，大街小巷都在谈论股票，大妈们在菜市场里交流着涨停板的经验，出租车司机也在推荐着所谓的“内幕消息”。市场情绪极度亢奋，仿佛只要买入，就能赚钱。而其中最耀眼的明星，莫过于“中国神车”——中国中车，股票代码601766.SH。",
+      "imagePrompt": "A split or transitioning image. One side shows a mature, composed Chinese man (Zhao Laoge) in a sophisticated, minimalist office, calmly overseeing multiple screens displaying large, steadily growing financial figures, conveying his rise to 200 million and his quiet power. The other side, or a dramatic overlay, depicts a vibrant, almost chaotic scene of a booming Chinese stock market in 2015, with excited crowds, flashing screens, and people eagerly discussing stocks in everyday settings. Dominating this scene is a stylized, glowing representation of '中国中车' (China Railway Rolling Stock Corporation) as a powerful, almost mythical '神车' (Divine Vehicle), symbolizing the impending 'super bull market' and the 'god-making battle'. Cinematic, high contrast, a sense of escalating drama and anticipation.",
+      "imageUrl": "assets/job_4_scene_8.png"
+    },
+    {
+      "durationInFrames": 1670,
+      "text": "这只股票，由中国南车与中国北车合并重组而来，承载着国家战略的宏伟愿景——打造全球领先的轨道交通装备巨头。在复牌之前，市场就对这起“世纪合并”充满了无限遐想。当它终于复牌的那一刻，所有人的目光都聚焦在了这只股票上。它开启了连续涨停的疯狂模式！每天开盘，都是“一字板”封死，买盘堆积如山，根本无法买入，也无法卖出。市场情绪被彻底点燃，所有人都知道，这将是一场饕餮盛宴，一场财富重新分配的狂欢。面对这千载难逢的机遇，赵老哥展现出了他作为顶级游资的胆魄与格局。他没有丝毫犹豫，果断加杠杆，将数亿元资金，如潮水般涌入中国中车！那是一种怎样的魄力？将自己数年积累的亿万财富，甚至加上杠杆，全部押注在一只股票上。这需要对市场趋势的极致判断，对国家战略的深刻理解，以及对自身交易系统的绝对自信。他可能在某个深夜，反复推演着中国中车的走势，计算着风险与收益，最终做出了这个足以改变他命运的决定。",
+      "imagePrompt": "A dynamic, high-energy scene. A futuristic, sleek Chinese high-speed train (symbolizing '中国中车' - China Railway Rolling Stock Corporation) is depicted as a powerful, unstoppable force, possibly breaking through a digital barrier. In the foreground, a determined Chinese man (Zhao Laoge) with an intense, focused gaze, is shown making a decisive move on a holographic trading interface, with abstract visual representations of hundreds of millions of RMB flowing into the 'Shenche'. The background features stylized stock charts showing continuous 'one-word limit-up' patterns, conveying extreme market frenzy and the audacious scale of his leveraged investment. Cinematic, epic, high-stakes, emphasizing his bold decision.",
+      "imageUrl": "assets/job_4_scene_9.png"
+    },
+    {
+      "durationInFrames": 1670,
+      "text": "龙虎榜上，银河证券绍兴营业部，这个赵老哥的标志性席位，买入金额一次次刷新着市场的认知。每天收盘后，无数股民都在盯着龙虎榜，试图从中捕捉到顶级游资的动向。当他们看到银河证券绍兴营业部那惊人的买入金额时，无不为之侧目，为之震撼。股票每天以“一字板”涨停，买不到，也卖不出，但赵老哥坚信，这辆“神车”将载着他冲向财富的巅峰。他像一个坐在高速列车上的乘客，看着窗外的风景飞速倒退，感受着财富以几何级数增长的眩晕感。",
+      "imagePrompt": "A multi-layered image. In the foreground, a group of diverse Chinese investors (some older, some younger) are gathered around a glowing screen, their faces a mix of awe, shock, and envy as they stare at a '龙虎榜' (Dragon-Tiger List) displaying '银河证券绍兴营业部' (Galaxy Securities Shaoxing Branch) with an impossibly large buy amount. In the background, a serene yet confident Chinese man (Zhao Laoge) is depicted inside a luxurious, high-speed train, looking out at a blur of rapidly passing scenery, symbolizing the dizzying, exponential growth of his wealth. The train itself is sleek and powerful, representing '中国神车'. Cinematic, contrasting emotions, symbolic of his confident ride on the 'Divine Vehicle'.",
+      "imageUrl": "assets/job_4_scene_10.png"
+    },
+    {
+      "durationInFrames": 1670,
+      "text": "仅仅两周时间，凭借中国中车的连续涨停，赵老哥的资金体量从两亿元，奇迹般地飙升至十亿元级别！这不仅仅是数字的跳动，更是他八年磨一剑，最终铸就辉煌的巅峰时刻。22015年4月16日，他在淘股吧发帖，只有短短几句话，却足以载入中国股市的史册：“今天是值得纪念的一天，资金终于上了一个大台阶，感谢中国神车！！！”这句看似平淡的话语，背后蕴含着多少不为人知的艰辛与付出，多少个日夜的思考与博弈。八年一万倍的传奇，就此铸就！",
+      "imagePrompt": "A powerful, celebratory yet understated image. A composed Chinese man (Zhao Laoge), with a subtle, knowing smile of triumph, stands in front of a large, clear digital display showing '1,000,000,000 RMB' or '1 Billion Yuan' prominently. A calendar date '2015年4月16日' is subtly visible. In the background, a stylized, almost ethereal '中国神车' (China Shenche) train is seen speeding into the distance, leaving a trail of light, symbolizing the vehicle of his success. A small, glowing '淘股吧' (Taoguba) icon could be subtly integrated. The lighting is bright and clear, conveying a sense of ultimate achievement and the forging of an 'eight years, ten thousand times' legend. Cinematic, triumphant, iconic.",
+      "imageUrl": "assets/job_4_scene_11.png"
+    },
+    {
+      "durationInFrames": 1670,
+      "text": "这一战，赵老哥彻底封神！但他的传奇远未结束。在随后的几年里，他继续活跃在各大“妖股”的龙虎榜上，每一次出手都精准而凌厉。比如2018-2019年的5G龙头东方通信，那是一个5G概念刚刚兴起，市场对未来充满无限憧憬的时代。东方通信作为5G概念的先锋，股价一路飙升，成为当时最耀眼的“妖股”。赵老哥多次现身其龙虎榜，精准捕捉热点，参与了这只妖股的数个连板。他像一个嗅觉灵敏的猎犬，总能在第一时间发现市场的热点，并果断出击。",
+      "imagePrompt": "A dynamic, almost mythical scene. A confident, almost 'deified' Chinese man (Zhao Laoge) is depicted with a subtle aura of legendary status. He is looking intently at a holographic display showing a soaring stock chart for '东方通信' (Oriental Communications), with prominent 5G symbols in the background, representing a new market trend. The '龙虎榜' (Dragon-Tiger List) with his name is subtly integrated. He is portrayed like a 'keen hound,' poised and ready to strike, symbolizing his ability to consistently identify and profit from 'demon stocks' in emerging hot sectors. Cinematic, futuristic, legendary, emphasizing his continued prowess.",
+      "imageUrl": "assets/job_4_scene_12.png"
+    },
+    {
+      "durationInFrames": 1670,
+      "text": "又如2018年因美国制裁而暴跌的中兴通讯，当时市场一片恐慌，无数投资者争相抛售，股价如同断了线的风筝般坠落。然而，当市场一片恐慌时，赵老哥却敢于逆势而为，动用数亿元资金果断抄底。他看到了别人看不到的价值，他相信中兴通讯作为中国科技巨头的韧性，也相信市场情绪终将修复。他利用超跌反弹再次获利丰厚。他的每一次出手，都是对市场情绪和资金博弈的极致演绎，展现了他作为顶级游资的超凡能力和独特眼光。",
+      "imagePrompt": "A powerful, contrasting image. On one side, a chaotic, dark scene of panicked investors selling off, with a stock chart for '中兴通讯' (ZTE) plummeting dramatically, symbolizing the US sanctions and market fear. On the other side, a calm, resolute Chinese man (Zhao Laoge) is depicted, almost in silhouette, confidently executing a large buy order on a holographic screen, with abstract visual cues suggesting 'hundreds of millions' of capital. His expression is one of deep conviction, seeing hidden value and resilience amidst the chaos. The lighting transitions from dark and chaotic to a subtle, determined glow around Zhao Laoge, emphasizing his contrarian wisdom and unique vision. Cinematic, dramatic, symbolic of a bold counter-move.",
+      "imageUrl": "assets/job_4_scene_13.png"
+    },
+    {
+      "durationInFrames": 1670,
+      "text": "功成名就的赵老哥，在2016年10月2日，于家乡绍兴举办了一场极其奢华的婚礼。那是一场轰动当地的盛事，豪车云集，明星助阵，尽显其亿万身家。他曾半夜开着法拉利跑车去吃烧烤，这种看似随性却又充满财富自由气息的生活方式，让人们对这位神秘的游资大佬充满了好奇。他也曾感慨“女朋友比好股票难找”，这句带着一丝幽默和无奈的话语，让这位神秘的游资大佬，多了一份人间烟火气，也让人们得以窥见他传奇人生背后的真实一面。他不再仅仅是一个冷冰冰的交易ID，而是一个有血有肉，有情感，有追求的普通人。如今的赵老哥，依旧活跃在A股市场。随着资金体量的不断增大，他的操作风格也趋于稳健，不再仅仅局限于短线妖股，也开始涉足一些大盘蓝筹。他从一个激进的“打板客”，成长为一位能够驾驭巨额资金的市场领袖。他的神话，还在以另一种方式延续，他依然是市场中那个令人敬畏的存在，只是他的战场，变得更加广阔，他的策略，也变得更加多元。",
+      "imagePrompt": "A triptych or multi-scene image. One panel shows a lavish, elegant wedding scene in Shaoxing, with luxury cars and subtle hints of celebrity presence, reflecting Zhao Laoge's success and wealth. Another panel humorously depicts a sleek red Ferrari parked casually outside a humble late-night BBQ stall, with a relaxed Chinese man (Zhao Laoge) enjoying food, conveying his unique lifestyle. The third panel shows a more mature, composed Zhao Laoge in a sophisticated trading room, now overseeing a broader range of market screens, including large-cap blue chips, symbolizing his evolved, steadier trading style and leadership. The overall mood is a blend of opulence, human charm, and continued strategic mastery, showing his evolution from a 'Da Ban' trader to a market leader. Cinematic, rich in detail, evolving narrative.",
+      "imageUrl": "assets/job_4_scene_14.png"
+    },
+    {
+      "durationInFrames": 1670,
+      "text": "“八年一万倍”的传奇，让无数股民心驰神往。赵老哥的故事，是勇气、智慧与纪律的结晶。他告诉我们，在股市中，要“尊重市场，顺势而为”。这意味着要放下个人的主观臆断，倾听市场的声音，跟随大势的方向。当市场处于牛市时，要敢于重仓出击；当市场处于熊市时，要学会保存实力，甚至逆势布局。他强调“热点来了全力以赴，热点退潮果断卖出”。这是一种极致的敏锐和果断。在市场热点爆发时，要迅速识别，集中资金，抓住主升浪；而一旦热点退潮，资金开始撤离，无论盈亏，都要果断离场，绝不恋战，绝不抱有幻想。",
+      "imagePrompt": "A powerful, instructional image. A wise, almost mentor-like Chinese man (Zhao Laoge) stands in front of a dynamic, abstract market visualization. On one side, a 'bull market' is represented by soaring green lines and confident figures, while on the other, a 'bear market' is depicted with descending red lines and cautious figures. Interspersed are glowing 'hot spots' (like bursts of energy or flame) that appear and then quickly fade, with a decisive hand (Zhao Laoge's) moving to capture or exit them. The overall aesthetic is educational, strategic, and emphasizes the principles of market respect, trend following, and decisive action on hot spots. Cinematic, symbolic, clear messaging.",
+      "imageUrl": "assets/job_4_scene_15.png"
+    },
+    {
+      "durationInFrames": 1670,
+      "text": "更令人称道的是，他从不补仓，错了就第二天集合竞价止损，绝不恋战。这种极致的纪律性，或许才是他成功的真正奥秘。在股市中，补仓往往是散户深陷泥潭的开始，而赵老哥却反其道而行之。他深知，每一次交易都可能出错，但只要严格控制风险，将每一次错误带来的损失降到最低，就能在长期博弈中立于不败之地。这种对风险的敬畏和对纪律的坚守，是他从十万元走向十亿元的根本保障。然而，我们也要清醒地认识到，赵老哥的成功，是特定时代背景、个人天赋和极致纪律的结合，难以复制。2015年的杠杆牛市，中国中车这样的国家战略级合并重组，以及当时市场对游资的宽容度，都为他的崛起提供了肥沃的土壤。对于普通投资者而言，与其盲目追逐“妖股”的暴利，不如学习其背后的交易哲学：对市场保持敬畏，对风险严格控制，对趋势精准判断。毕竟，股市有风险，入市需谨慎，但赵老哥的传奇，无疑为我们提供了一个鲜活的样本，去思考财富、风险与人性的博弈。",
+      "imagePrompt": "A compelling, dual-narrative image. On one side, a disciplined Chinese man (Zhao Laoge) is shown with a firm, unwavering hand hovering over a 'STOP LOSS' button on a clean, minimalist trading interface, symbolizing his strict adherence to discipline and risk control, contrasting with the chaos. This contrasts sharply with the other side, where a blurred, chaotic scene depicts panicked retail investors making emotional decisions, perhaps averaging down into a falling market. In the background, subtle visual cues of the 2015 leverage bull market and '中国神车' (China Shenche) hint at the unique context of his success. The overall mood is one of cautionary wisdom, emphasizing the rarity of his achievement while highlighting universal principles of risk management and discipline. Cinematic, stark contrast, thought-provoking.",
+      "imageUrl": "assets/job_4_scene_16.png"
+    },
+    {
+      "durationInFrames": 1680,
+      "text": "今天的妖股传说与游资复盘就到这里。感谢您的收听，我们下期再见！",
+      "imagePrompt": "A clean, elegant closing image for a financial podcast. A stylized, vintage-modern microphone is centrally placed, casting a soft glow. In the background, subtle, abstract financial graphs or a faint '妖股传说与游资复盘' (Demon Stock Legends and Speculative Capital Review) logo could be visible. The lighting is warm and inviting, conveying a sense of conclusion and a promise of future engagement. Cinematic, minimalist, professional, with a subtle nod to the podcast's theme.",
+      "imageUrl": "assets/job_4_scene_17.png"
     }
-  ]
+  ],
+  "filterStyle": "contrast(1.2) brightness(1.0) saturate(1.3)",
+  "bgmUrl": "assets/bgm/suspense_loop_1.mp3"
 }

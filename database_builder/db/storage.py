@@ -19,9 +19,10 @@ def init_db():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS historical_events (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            month INTEGER NOT NULL,
-            day INTEGER NOT NULL,
-            year INTEGER NOT NULL,
+            channel_id INTEGER REFERENCES channels(id),
+            month INTEGER,
+            day INTEGER,
+            year INTEGER,
             title TEXT NOT NULL,
             summary TEXT NOT NULL,
             category TEXT,
@@ -34,7 +35,7 @@ def init_db():
     # Unique constraint prevents double-scraping the exact same event
     cursor.execute('''
         CREATE UNIQUE INDEX IF NOT EXISTS idx_event_unique 
-        ON historical_events(month, day, year, title)
+        ON historical_events(channel_id, month, day, year, title)
     ''')
     
     # Pipeline Tracker Table
@@ -42,6 +43,7 @@ def init_db():
         CREATE TABLE IF NOT EXISTS video_jobs (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             event_id INTEGER NOT NULL UNIQUE,
+            channel_id INTEGER REFERENCES channels(id),
             status TEXT NOT NULL DEFAULT 'PENDING',
             script_prompt TEXT,
             script_json TEXT,

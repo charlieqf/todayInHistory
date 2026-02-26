@@ -55,7 +55,9 @@ def render_video_for_job(job_id: int) -> bool:
             cwd=REMOTION_DIR,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
-            text=True
+            text=True,
+            encoding="utf-8",
+            errors="replace"
         )
         
         # Stream logs to the python terminal

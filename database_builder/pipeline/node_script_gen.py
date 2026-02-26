@@ -83,7 +83,7 @@ def _review_script(client, review_prompt: str, script_json_str: str, event_title
     review_input = f"Event: {event_title}\n\nScript to review:\n{script_json_str}"
     response = client.models.generate_content(
         model='gemini-3-flash-preview',
-        contents=[REVIEW_PROMPT, review_input],
+        contents=[review_prompt, review_input],
         config=types.GenerateContentConfig(
             response_mime_type="application/json",
             response_schema=ReviewResult,
@@ -152,8 +152,13 @@ def run_script_generation(job_id: int):
 
         # Build context from rich_context if available, else fallback to summary
         context = job['rich_context'] if job['rich_context'] else job['summary']
-        date_str = f"{job['year']}年{job['month']}月{job['day']}日"
-        prompt = f"Event Title: {job['title']}\nDate: {date_str}\n\nContext Details:\n{context}\n\nCreate the 8-scene script based on this."
+        date_str = ""
+        if job['month'] and job['day']:
+            date_str = f"Date: {job['year']}年{job['month']}月{job['day']}日\n"
+        elif job['year']:
+            date_str = f"Time period: {job['year']}年\n"
+            
+        prompt = f"Event Title: {job['title']}\n{date_str}\nContext Details:\n{context}\n\nCreate the 8-scene script based on this."
 
         client = _get_gemini_client()
 

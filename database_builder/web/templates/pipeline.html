@@ -180,8 +180,18 @@
 
     <div class="header">
         <div>
-            <h1>🎬 工作流调度 / Pipeline Job #{{ job.id }}</h1>
-            <p style="margin-top: 0.5rem; font-weight: 600; color: #334155;">{{ job.title }} ({{ job.year }}年)</p>
+            <h1>
+                🎬 工作流调度 / Pipeline Job #{{ job.id }}
+                {% if job.channel_name %}
+                <span
+                    style="font-size: 0.8em; padding: 2px 8px; border-radius: 6px; background: {{ job.channel_color }}22; color: {{ job.channel_color }}; border: 1px solid {{ job.channel_color }}; margin-left: 10px; vertical-align: middle;">{{
+                    job.channel_name }}</span>
+                {% endif %}
+            </h1>
+            <p style="margin-top: 0.5rem; font-weight: 600; color: var(--text-muted);">
+                <strong>{{ job.title }}</strong>
+                {% if job.year %}({{ job.year }}年){% endif %}
+            </p>
         </div>
         <div style="display: flex; gap: 1rem; align-items: center;">
             <div class="badge">Status: {{ job.status }}</div>

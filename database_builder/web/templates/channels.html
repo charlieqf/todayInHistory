@@ -4,360 +4,307 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>频道管理 - 视频矩阵中台</title>
+    <title>频道库管理 - 视频矩阵中台</title>
     <style>
+        :root {
+            --bg-body: #f7f9fc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background: #0a0e17;
-            color: #e0e0e0;
-            min-height: 100vh;
+            font-family: var(--font-family);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .header {
-            background: linear-gradient(135deg, #1a1f2e 0%, #0d1117 100%);
-            padding: 24px 40px;
-            border-bottom: 1px solid #1e293b;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-end;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
         }
 
         .header h1 {
-            font-size: 22px;
-            color: #f8fafc;
+            font-size: 1.5rem;
+            color: #0f172a;
         }
 
-        .header h1 span {
-            color: #6b7280;
-            font-weight: 400;
-            font-size: 14px;
-            margin-left: 12px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 16px;
-        }
-
-        .nav-links a {
-            color: #94a3b8;
+        .header a {
+            color: var(--accent);
             text-decoration: none;
-            font-size: 14px;
-            padding: 8px 16px;
-            border-radius: 8px;
-            transition: all 0.2s;
+            font-weight: 600;
+            padding: 6px 14px;
+            border: 1px solid var(--accent);
+            border-radius: 6px;
         }
 
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: #f8fafc;
-            background: rgba(99, 102, 241, 0.15);
+        .toolbar {
+            margin-bottom: 2rem;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 32px 24px;
+        button.btn-primary {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
         }
 
-        .channels-grid {
+        button.btn-primary:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-            gap: 20px;
+            gap: 1.5rem;
         }
 
-        .channel-card {
-            background: #111827;
-            border: 1px solid #1e293b;
-            border-radius: 16px;
-            padding: 24px;
-            transition: all 0.3s;
-            cursor: pointer;
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
             position: relative;
-            overflow: hidden;
-        }
-
-        .channel-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 16px 16px 0 0;
-        }
-
-        .channel-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 16px;
+            align-items: center;
         }
 
-        .card-name {
-            font-size: 20px;
+        .card-title {
+            font-size: 1.25rem;
             font-weight: 700;
-        }
-
-        .card-slug {
-            font-size: 12px;
-            color: #6b7280;
-            font-family: monospace;
-            background: #1e293b;
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-
-        .card-stats {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--accent);
-        }
-
-        .stat-label {
-            font-size: 11px;
-            color: #6b7280;
-            text-transform: uppercase;
-        }
-
-        .card-config {
-            font-size: 13px;
-            color: #94a3b8;
-        }
-
-        .config-row {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 6px;
+            gap: 0.5rem;
         }
 
-        .config-label {
-            color: #6b7280;
-            min-width: 60px;
+        .color-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
         }
 
-        .config-value {
-            color: #e2e8f0;
+        .slug-badge {
             font-family: monospace;
-            font-size: 12px;
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
         }
 
-        .btn {
-            padding: 8px 16px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
-            transition: all 0.2s;
+        .card-body {
+            font-size: 0.875rem;
+            color: #475569;
+            flex: 1;
         }
 
-        .btn-edit {
-            background: rgba(99, 102, 241, 0.15);
-            color: #818cf8;
+        .prop {
+            margin-bottom: 0.5rem;
         }
 
-        .btn-edit:hover {
-            background: rgba(99, 102, 241, 0.3);
+        .prop strong {
+            color: var(--text-main);
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            padding: 12px 24px;
-            font-size: 15px;
+        .code-block {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.75rem;
+            white-space: pre-wrap;
+            max-height: 100px;
+            overflow-y: auto;
+            margin-top: 0.25rem;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+            font-size: 0.875rem;
         }
 
-        /* Modal */
-        .modal-overlay {
+        .stats {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Modal Styles */
+        .modal {
             display: none;
             position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
             z-index: 100;
-            justify-content: center;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
             align-items: center;
+            justify-content: center;
         }
 
-        .modal-overlay.active {
+        .modal-content {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 600px;
+            max-width: 90%;
             display: flex;
-        }
-
-        .modal {
-            background: #111827;
-            border: 1px solid #1e293b;
-            border-radius: 16px;
-            width: 90%;
-            max-width: 700px;
+            flex-direction: column;
+            gap: 1rem;
             max-height: 90vh;
             overflow-y: auto;
-            padding: 32px;
         }
 
-        .modal h2 {
-            margin-bottom: 24px;
-            font-size: 20px;
+        .modal-content h2 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
         }
 
         .form-group {
-            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
         }
 
         .form-group label {
-            display: block;
-            font-size: 13px;
-            color: #94a3b8;
-            margin-bottom: 6px;
+            font-size: 0.875rem;
             font-weight: 600;
         }
 
         .form-group input,
         .form-group textarea,
         .form-group select {
-            width: 100%;
-            padding: 10px 14px;
-            border-radius: 8px;
-            border: 1px solid #374151;
-            background: #1e293b;
-            color: #e2e8f0;
-            font-size: 14px;
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
             font-family: inherit;
         }
 
         .form-group textarea {
-            min-height: 120px;
             resize: vertical;
-            font-family: monospace;
-            font-size: 13px;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #6366f1;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            min-height: 80px;
         }
 
         .modal-actions {
             display: flex;
             justify-content: flex-end;
-            gap: 12px;
-            margin-top: 24px;
+            gap: 1rem;
+            margin-top: 1rem;
         }
 
         .btn-cancel {
-            background: #374151;
-            color: #e2e8f0;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
         }
     </style>
 </head>
 
 <body>
+
     <div class="header">
-        <h1>📺 频道管理 <span>视频矩阵中台</span></h1>
-        <div class="nav-links">
-            <a href="/">素材库</a>
-            <a href="/channels" class="active">频道管理</a>
+        <div>
+            <h1>⚙️ 频道库配置中心</h1>
+            <p>管理多系列矩阵的 Prompt、TTS 音色与视觉预设</p>
         </div>
+        <a href="/">⬅ 返回素材看板</a>
     </div>
 
-    <div class="container">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
-            <p style="color:#6b7280;">管理视频系列的提示词、TTS 音色和视觉风格。新增或编辑频道后，流水线将自动使用对应配置。</p>
-            <button class="btn btn-primary" onclick="openCreateModal()">+ 新建频道</button>
-        </div>
+    <div class="toolbar">
+        <button class="btn-primary" onclick="openModal()">+ 新建频道</button>
+    </div>
 
-        <div class="channels-grid" id="channelsGrid">
-            <div style="color:#6b7280; padding:40px; text-align:center;">加载中...</div>
-        </div>
+    <div class="grid" id="channelsGrid">
+        <div style="color: var(--text-muted);">正在加载频道数据...</div>
     </div>
 
     <!-- Edit/Create Modal -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal">
+    <div id="channelModal" class="modal">
+        <div class="modal-content">
             <h2 id="modalTitle">编辑频道</h2>
-            <input type="hidden" id="editChannelId" />
+            <input type="hidden" id="editId">
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label>频道名称</label>
-                    <input type="text" id="fieldDisplayName" placeholder="💻 IT历史上的今天" />
-                </div>
-                <div class="form-group">
-                    <label>Slug (唯一标识)</label>
-                    <input type="text" id="fieldSlug" placeholder="it_history" />
-                </div>
+            <div class="form-group">
+                <label>频道英文标识 (Slug，不可变)</label>
+                <input type="text" id="editSlug" placeholder="e.g. stock_replay">
             </div>
 
             <div class="form-group">
-                <label>System Prompt (脚本生成提示词)</label>
-                <textarea id="fieldSystemPrompt" placeholder="You are an elite scriptwriter..."></textarea>
+                <label>显示名称 (Display Name)</label>
+                <input type="text" id="editDisplayName" placeholder="e.g. 📈 妖股复盘">
             </div>
 
             <div class="form-group">
-                <label>Review Prompt (自审提示词，留空则用通用默认)</label>
-                <textarea id="fieldReviewPrompt" style="min-height:80px;" placeholder="留空则使用默认审阅提示词"></textarea>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label>TTS 音色</label>
-                    <select id="fieldTtsVoice">
-                        <option value="zh-CN-YunxiNeural">YunxiNeural (极客男声)</option>
-                        <option value="zh-CN-YunjianNeural">YunjianNeural (沉稳播音)</option>
-                        <option value="zh-CN-XiaoyiNeural">XiaoyiNeural (活泼女声)</option>
-                        <option value="zh-CN-XiaochenNeural">XiaochenNeural (国风女声)</option>
-                        <option value="zh-CN-YunyangNeural">YunyangNeural (新闻主播)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>主题色</label>
-                    <input type="color" id="fieldColorAccent" value="#00d4ff" style="height:40px;" />
-                </div>
+                <label>主题标签颜色 (Color Accent)</label>
+                <input type="color" id="editColor" value="#00d4ff">
             </div>
 
             <div class="form-group">
-                <label>CSS 滤镜 (Remotion 视频画面风格)</label>
-                <input type="text" id="fieldCssFilter" placeholder="sepia(0.3) contrast(1.1) brightness(0.9)" />
+                <label>云端捏娃音色 (TTS Voice)</label>
+                <select id="editTts">
+                    <option value="zh-CN-YunxiNeural">YunxiNeural (极客男声/干练)</option>
+                    <option value="zh-CN-YunjianNeural">YunjianNeural (财经男声/沉稳)</option>
+                    <option value="zh-CN-XiaoyiNeural">XiaoyiNeural (女性/悬疑)</option>
+                    <option value="zh-CN-XiaochenNeural">XiaochenNeural (清新女声)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>视觉滤镜 (CSS Filter)</label>
+                <input type="text" id="editCss" placeholder="sepia(0.3) contrast(1.1)">
+            </div>
+
+            <div class="form-group">
+                <label>系统剧本提示词 (System Prompt - 节点2)</label>
+                <textarea id="editSystemPrompt"
+                    placeholder="Write the system prompt instructing Gemini how to generate the 8-scene script..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>自反省提示词 (Review Prompt - 节点2) *选填</label>
+                <textarea id="editReviewPrompt"
+                    placeholder="Critique the generated script against specific rules... (Leave blank for default)"></textarea>
             </div>
 
             <div class="modal-actions">
-                <button class="btn btn-cancel" onclick="closeModal()">取消</button>
-                <button class="btn btn-primary" onclick="saveChannel()">保存</button>
+                <button class="btn-cancel" onclick="closeModal()">取消</button>
+                <button class="btn-primary" onclick="saveChannel()">保存配置</button>
             </div>
         </div>
     </div>
@@ -366,95 +313,106 @@
         let allChannels = [];
 
         async function loadChannels() {
-            const res = await fetch('/api/channels');
-            allChannels = await res.json();
-            renderChannels();
+            try {
+                const res = await fetch('/api/channels');
+                allChannels = await res.json();
+                renderChannels();
+            } catch (e) {
+                document.getElementById('channelsGrid').innerHTML = `<div style="color:red;">加载失败: ${e}</div>`;
+            }
         }
 
         function renderChannels() {
             const grid = document.getElementById('channelsGrid');
-            if (!allChannels.length) {
-                grid.innerHTML = '<div style="color:#6b7280; padding:40px; text-align:center;">暂无频道，点击右上角新建</div>';
+            if (allChannels.length === 0) {
+                grid.innerHTML = `<div>暂无频道配置</div>`;
                 return;
             }
+
             grid.innerHTML = allChannels.map(ch => `
-        <div class="channel-card" style="--accent: ${ch.color_accent}" onclick="openEditModal(${ch.id})">
-            <div class="card-header">
-                <div class="card-name">${ch.display_name}</div>
-                <div class="card-slug">${ch.slug}</div>
-            </div>
-            <div class="card-stats">
-                <div class="stat"><div class="stat-value">${ch.event_count || 0}</div><div class="stat-label">素材</div></div>
-                <div class="stat"><div class="stat-value">${ch.job_count || 0}</div><div class="stat-label">视频任务</div></div>
-            </div>
-            <div class="card-config">
-                <div class="config-row"><span class="config-label">🎙️ 音色</span><span class="config-value">${ch.tts_voice}</span></div>
-                <div class="config-row"><span class="config-label">🎨 滤镜</span><span class="config-value">${ch.css_filter}</span></div>
-            </div>
-            <div style="margin-top:12px;"><button class="btn btn-edit" onclick="event.stopPropagation(); openEditModal(${ch.id})">✏️ 编辑配置</button></div>
-        </div>
-    `).join('');
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="color-dot" style="background-color: ${ch.color_accent}"></span>
+                            ${ch.display_name}
+                        </div>
+                        <span class="slug-badge">${ch.slug}</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="prop"><strong>TTS 音色:</strong> ${ch.tts_voice}</div>
+                        <div class="prop"><strong>CSS 滤镜:</strong> <code>${ch.css_filter}</code></div>
+                        <div class="prop">
+                            <strong>System Prompt:</strong>
+                            <div class="code-block">${ch.system_prompt}</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            素材: ${ch.event_count} | 视频: ${ch.job_count}
+                        </div>
+                        <button class="btn-cancel" style="padding: 0.25rem 0.75rem;" onclick='openModal(${JSON.stringify(ch).replace(/'/g, "&#39;")})'>✏️ 编辑</button>
+                    </div>
+                </div>
+            `).join('');
         }
 
-        function openCreateModal() {
-            document.getElementById('modalTitle').textContent = '新建频道';
-            document.getElementById('editChannelId').value = '';
-            document.getElementById('fieldDisplayName').value = '';
-            document.getElementById('fieldSlug').value = '';
-            document.getElementById('fieldSystemPrompt').value = '';
-            document.getElementById('fieldReviewPrompt').value = '';
-            document.getElementById('fieldTtsVoice').value = 'zh-CN-YunxiNeural';
-            document.getElementById('fieldColorAccent').value = '#00d4ff';
-            document.getElementById('fieldCssFilter').value = 'sepia(0.3) contrast(1.1) brightness(0.9) grayscale(0.2)';
-            document.getElementById('fieldSlug').disabled = false;
-            document.getElementById('modalOverlay').classList.add('active');
+        function openModal(ch = null) {
+            const modal = document.getElementById('channelModal');
+            document.getElementById('modalTitle').innerText = ch ? '编辑频道配置' : '新建频道';
+
+            document.getElementById('editId').value = ch ? ch.id : '';
+            const slugInput = document.getElementById('editSlug');
+            slugInput.value = ch ? ch.slug : '';
+            slugInput.disabled = !!ch; // Cannot edit slug once created
+
+            document.getElementById('editDisplayName').value = ch ? ch.display_name : '';
+            document.getElementById('editColor').value = ch ? ch.color_accent : '#00d4ff';
+            document.getElementById('editTts').value = ch ? ch.tts_voice : 'zh-CN-YunxiNeural';
+            document.getElementById('editCss').value = ch ? ch.css_filter : '';
+            document.getElementById('editSystemPrompt').value = ch ? ch.system_prompt : '';
+            document.getElementById('editReviewPrompt').value = ch ? (ch.review_prompt || '') : '';
+
+            modal.style.display = 'flex';
         }
 
-        function openEditModal(id) {
-            const ch = allChannels.find(c => c.id === id);
-            if (!ch) return;
-            document.getElementById('modalTitle').textContent = `编辑：${ch.display_name}`;
-            document.getElementById('editChannelId').value = ch.id;
-            document.getElementById('fieldDisplayName').value = ch.display_name;
-            document.getElementById('fieldSlug').value = ch.slug;
-            document.getElementById('fieldSlug').disabled = true;
-            document.getElementById('fieldSystemPrompt').value = ch.system_prompt;
-            document.getElementById('fieldReviewPrompt').value = ch.review_prompt || '';
-            document.getElementById('fieldTtsVoice').value = ch.tts_voice;
-            document.getElementById('fieldColorAccent').value = ch.color_accent;
-            document.getElementById('fieldCssFilter').value = ch.css_filter;
-            document.getElementById('modalOverlay').classList.add('active');
+        function closeModal() {
+            document.getElementById('channelModal').style.display = 'none';
         }
-
-        function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
 
         async function saveChannel() {
-            const id = document.getElementById('editChannelId').value;
-            const data = {
-                slug: document.getElementById('fieldSlug').value,
-                display_name: document.getElementById('fieldDisplayName').value,
-                system_prompt: document.getElementById('fieldSystemPrompt').value,
-                review_prompt: document.getElementById('fieldReviewPrompt').value,
-                tts_voice: document.getElementById('fieldTtsVoice').value,
-                css_filter: document.getElementById('fieldCssFilter').value,
-                color_accent: document.getElementById('fieldColorAccent').value,
+            const id = document.getElementById('editId').value;
+            const payload = {
+                slug: document.getElementById('editSlug').value,
+                display_name: document.getElementById('editDisplayName').value,
+                color_accent: document.getElementById('editColor').value,
+                tts_voice: document.getElementById('editTts').value,
+                css_filter: document.getElementById('editCss').value,
+                system_prompt: document.getElementById('editSystemPrompt').value,
+                review_prompt: document.getElementById('editReviewPrompt').value
             };
 
-            const url = id ? `/api/channels/${id}` : '/api/channels';
             const method = id ? 'PUT' : 'POST';
+            const url = id ? `/api/channels/${id}` : '/api/channels';
 
-            const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-            const result = await res.json();
-
-            if (result.success) {
-                closeModal();
-                loadChannels();
-            } else {
-                alert('Error: ' + (result.error || 'Unknown'));
+            try {
+                const res = await fetch(url, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    closeModal();
+                    loadChannels();
+                } else {
+                    alert('保存失败: ' + data.error);
+                }
+            } catch (e) {
+                alert('网络错误: ' + e);
             }
         }
 
-        document.getElementById('modalOverlay').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeModal(); });
+        // Initialize
         loadChannels();
     </script>
 </body>

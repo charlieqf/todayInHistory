@@ -1,0 +1,346 @@
+
+[
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "-2Hz",
+        "rate": "+5%",
+        "text": "大家好，<break time=\"500ms\"/>欢迎来到今天的节目。今天我们要讲的故事，<break time=\"300ms\"/>极其硬核，极其疯狂。"
+    },
+    {
+        "role": "guest",
+        "voice_profile": "zh-CN-XiaoxiaoNeural",
+        "pitch": "+5Hz",
+        "rate": "+10%",
+        "text": "<prosody rate=\"fast\">哇哦，听你这个语气，今天是要搞大事情啊？</prosody>"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "-5Hz",
+        "rate": "+0%",
+        "text": "绝对的大事情。你想想，如果现在给你十万块钱，让你去炒股……<break time=\"400ms\"/>给你八年时间，你觉得你能变成多少钱？"
+    },
+    {
+        "role": "guest",
+        "voice_profile": "zh-CN-XiaoxiaoNeural",
+        "pitch": "+0Hz",
+        "rate": "+15%",
+        "text": "十万？八年？哎呀，股市风险那么大，能保本就谢天谢地了。如果运气好，翻个倍，变成二三十万？"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "-8Hz",
+        "rate": "-10%",
+        "text": "十个亿。"
+    },
+    {
+        "role": "guest",
+        "voice_profile": "zh-CN-XiaoxiaoNeural",
+        "pitch": "+15Hz",
+        "rate": "+25%",
+        "text": "<prosody pitch=\"high\">啊？！多少？！十个亿？！</prosody> 你在逗我吧？这是买欢乐豆吗？"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "+0Hz",
+        "rate": "+10%",
+        "text": "真金白银的十个亿！这个人，就是中国短线游资圈里，被无数人奉为神明的“赵老哥”。<break time=\"400ms\"/>2007年，他还在浙江财经大学读大二，拿着父母给的10万块钱，一头扎进了股市。"
+    },
+    {
+        "role": "guest",
+        "voice_profile": "zh-CN-XiaoxiaoNeural",
+        "pitch": "+5Hz",
+        "rate": "+10%",
+        "text": "等一下，2007年入市？我虽然不懂股票，但我知道2008年可是全球金融海啸啊！雷曼兄弟破产那个时候对吧？"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "+2Hz",
+        "rate": "+5%",
+        "text": "没错！当时的上证指数，从6124点的历史大顶，直接像自由落体一样，狂泻到1664点！<break time=\"300ms\"/>跌了70%多！无数老股民倾家荡产，跳楼的都有。"
+    },
+    {
+        "role": "guest",
+        "voice_profile": "zh-CN-XiaoxiaoNeural",
+        "pitch": "+0Hz",
+        "rate": "+15%",
+        "text": "天哪……那他这十万块钱，岂不是进去连个水花都没溅起来，直接灰飞烟灭了？"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "-5Hz",
+        "rate": "+0%",
+        "text": "这就是他恐怖的地方。在长达18个月、堪称绞肉机的熊市里，当所有人都在绝望割肉的时候……<break time=\"500ms\"/>他的账户没有清零，反而变成了20万！"
+    },
+    {
+        "role": "guest",
+        "voice_profile": "zh-CN-XiaoxiaoNeural",
+        "pitch": "+10Hz",
+        "rate": "+20%",
+        "text": "<prosody rate=\"fast\">不是吧？！别人腰斩，他翻倍？在那种全盘皆输的行情下，他怎么做到的？</prosody>"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "+0Hz",
+        "rate": "+5%",
+        "text": "因为他天生就有一颗冷酷的心脏。在极度恐慌中，他看到了别人看不到的微光，逆势布局。这也为他后来的爆发，打下了最坚实的基础。"
+    },
+    {
+        "role": "sys_inject_song",
+        "voice_profile": "none",
+        "pitch": "0Hz",
+        "rate": "0%",
+        "text": "[SONG_INSERT_DAWN_OF_VICTORY]"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "+2Hz",
+        "rate": "+10%",
+        "text": "熬过了寒冬，2009年，A股终于迎来了反弹。这一年，赵老哥就像一头出笼的猛兽，资金直接从20万飙到了200万！"
+    },
+    {
+        "role": "guest",
+        "voice_profile": "zh-CN-XiaoxiaoNeural",
+        "pitch": "+5Hz",
+        "rate": "+15%",
+        "text": "哇，一年十倍！这已经是妥妥的民间高手了吧！"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "+0Hz",
+        "rate": "+10%",
+        "text": "但他觉得这还不够。2010年，他以“赵老哥”这个ID，报名参加了淘股吧的第五届“职业炒手杯”实盘大赛。你知道那是什么地方吗？"
+    },
+    {
+        "role": "guest",
+        "voice_profile": "zh-CN-XiaoxiaoNeural",
+        "pitch": "+0Hz",
+        "rate": "+10%",
+        "text": "听名字……像是一个神仙打架的地方？"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "-2Hz",
+        "rate": "+5%",
+        "text": "没错，那是全国顶尖短线游资的斗兽场！结果在15个月的赛程里，他把243万的参赛资金，一路杀到了1547万，<break time=\"300ms\"/>以压倒性优势拿下冠军！一战成名！"
+    },
+    {
+        "role": "guest",
+        "voice_profile": "zh-CN-XiaoxiaoNeural",
+        "pitch": "+5Hz",
+        "rate": "+20%",
+        "text": "太夸张了吧！他到底是用什么方法炒股的啊？有什么独门绝技吗？"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "+0Hz",
+        "rate": "+10%",
+        "text": "他的绝技就是“打板”。而且，他有一句非常著名的口头禅，叫：<prosody pitch=\"low\" rate=\"slow\">“二板定龙头，一板能看出来个毛？”</prosody>"
+    },
+    {
+        "role": "guest",
+        "voice_profile": "zh-CN-XiaoxiaoNeural",
+        "pitch": "+10Hz",
+        "rate": "+15%",
+        "text": "哈哈哈哈，好粗暴啊！意思就是，股票第一个涨停的时候他不买，非要等第二个涨停才买？"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "+2Hz",
+        "rate": "+10%",
+        "text": "对！因为第一个涨停可能是偶然，但如果有资金愿意把它推上第二个涨停，说明市场情绪彻底被点燃了，这就是龙头！他只做龙头，哪怕追高也绝不买跟风的垃圾股。"
+    },
+    {
+        "role": "sys_inject_ad",
+        "voice_profile": "none",
+        "pitch": "0Hz",
+        "rate": "0%",
+        "text": "[AD_INSERT_1]"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "-2Hz",
+        "rate": "+5%",
+        "text": "欢迎回来。<break time=\"300ms\"/>靠着极其专注的“打板”战法，到了2015年初，赵老哥的资金已经达到了惊人的2个亿。"
+    },
+    {
+        "role": "guest",
+        "voice_profile": "zh-CN-XiaoxiaoNeural",
+        "pitch": "+0Hz",
+        "rate": "+10%",
+        "text": "2个亿啊……普通人早就退休环游世界了吧？他还想干嘛？"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "-5Hz",
+        "rate": "+0%",
+        "text": "因为他闻到了史诗级财富的气息。2015年4月，A股迎来了那场疯狂的超级牛市。<break time=\"400ms\"/>而当时市场上最耀眼的明星，是一只被称为“中国神车”的股票——中国中车。"
+    },
+    {
+        "role": "guest",
+        "voice_profile": "zh-CN-XiaoxiaoNeural",
+        "pitch": "+5Hz",
+        "rate": "+15%",
+        "text": "哦！这个我知道！当时我大妈在菜市场都在聊这只股票，说南车北车合并，天天涨停！"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "+2Hz",
+        "rate": "+15%",
+        "text": "对，每天开盘就是“一字板”涨停，散户根本买不进去。面对这种千载难逢的机会，你猜赵老哥做了什么？"
+    },
+    {
+        "role": "guest",
+        "voice_profile": "zh-CN-XiaoxiaoNeural",
+        "pitch": "+0Hz",
+        "rate": "+10%",
+        "text": "他肯定买进去了吧？"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "+5Hz",
+        "rate": "+15%",
+        "text": "他不仅买进去了，他还果断加了杠杆！把这几年积累的几个亿资金，像潮水一样，<prosody volume=\"loud\">全部砸进了中国中车！ALL IN！</prosody>"
+    },
+    {
+        "role": "guest",
+        "voice_profile": "zh-CN-XiaoxiaoNeural",
+        "pitch": "+15Hz",
+        "rate": "+25%",
+        "text": "<prosody rate=\"fast\">疯了吧？！在连续涨停的股票上加杠杆ALL IN？！万一哪天突然大跌，他这几个亿瞬间就爆仓归零了啊！</prosody>"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "-2Hz",
+        "rate": "+5%",
+        "text": "这就是顶级游资的格局和胆魄！他坚信自己的判断。结果呢？短短两周时间，凭借着神车的连续涨停，他的资金量……<break time=\"500ms\"/>从2亿，直接飙升到了10亿级别！"
+    },
+    {
+        "role": "guest",
+        "voice_profile": "zh-CN-XiaoxiaoNeural",
+        "pitch": "+5Hz",
+        "rate": "+10%",
+        "text": "我的妈呀……两周赚了8个亿……这心跳谁受得了啊。"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "+0Hz",
+        "rate": "+10%",
+        "text": "2015年4月16日，他在论坛发了一句话：“今天是值得纪念的一天，资金终于上了一个大台阶，感谢中国神车！！！”<break time=\"300ms\"/>八年，一万倍的传奇，在这一刻，彻底封神！"
+    },
+    {
+        "role": "sys_inject_qa",
+        "voice_profile": "none",
+        "pitch": "0Hz",
+        "rate": "0%",
+        "text": "[QA_INSERT_LIFESTYLE]"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "+0Hz",
+        "rate": "+5%",
+        "text": "刚才这位听众问得好，赚了十个亿，这老哥平时生活是什么样的？是不是天天游艇嫩模？"
+    },
+    {
+        "role": "guest",
+        "voice_profile": "zh-CN-XiaoxiaoNeural",
+        "pitch": "+5Hz",
+        "rate": "+15%",
+        "text": "对啊对啊，我也超想知道！他才二十多岁吧？"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "+2Hz",
+        "rate": "+10%",
+        "text": "2016年，他在老家绍兴办了一场极其奢华的婚礼，豪车云集。平时呢，他会半夜开着法拉利跑车，去路边摊吃烧烤。"
+    },
+    {
+        "role": "guest",
+        "voice_profile": "zh-CN-XiaoxiaoNeural",
+        "pitch": "+10Hz",
+        "rate": "+15%",
+        "text": "哎哟，这画面感太强了。穿着大裤衩，开着法拉利吃烤腰子是吧？"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "-2Hz",
+        "rate": "+5%",
+        "text": "哈哈，差不多。不过他最出圈的一句话，是他在论坛里抱怨的，他说：<prosody pitch=\"low\">“女朋友比好股票难找啊。”</prosody>"
+    },
+    {
+        "role": "guest",
+        "voice_profile": "zh-CN-XiaoxiaoNeural",
+        "pitch": "+5Hz",
+        "rate": "+10%",
+        "text": "啧啧啧，这浓浓的凡尔赛气息！不过说真的，他能活到现在没破产，肯定不止是胆子大吧？"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "-5Hz",
+        "rate": "+0%",
+        "text": "问到点子上了。赵老哥能长盛不衰，靠的是极其冷酷的纪律。<break time=\"300ms\"/>其中最反人性的一条铁律就是：他从来不补仓。"
+    },
+    {
+        "role": "guest",
+        "voice_profile": "zh-CN-XiaoxiaoNeural",
+        "pitch": "+5Hz",
+        "rate": "+15%",
+        "text": "欸？不补仓？普通散户不都是跌了就买点，摊低成本，等回本再卖吗？"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "+2Hz",
+        "rate": "+10%",
+        "text": "错！在赵老哥眼里，买入后跌了，就证明逻辑错了。错了怎么办？第二天开盘集合竞价，直接割肉止损，绝不抱有任何幻想！"
+    },
+    {
+        "role": "guest",
+        "voice_profile": "zh-CN-XiaoxiaoNeural",
+        "pitch": "+0Hz",
+        "rate": "+10%",
+        "text": "哇……眼睁睁看着几百万几千万的亏损，手起刀落直接砍掉？这得多狠的心啊。"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "-2Hz",
+        "rate": "+5%",
+        "text": "正是这种对风险的极度敬畏，才保住了他一次次躲过大跌。但我们要提醒大家，赵老哥的成功，是特定时代的产物。2015年的杠杆牛，极端的市场情绪，加上他个人的天赋，很难被复制。"
+    },
+    {
+        "role": "guest",
+        "voice_profile": "zh-CN-XiaoxiaoNeural",
+        "pitch": "+0Hz",
+        "rate": "+5%",
+        "text": "确实，普通人要是学他去满仓加杠杆追涨停，估计连裤衩都要赔光了。股市有风险，入市需谨慎啊大家！"
+    },
+    {
+        "role": "host",
+        "voice_profile": "zh-CN-YunjianNeural",
+        "pitch": "-5Hz",
+        "rate": "+0%",
+        "text": "没错。比起盲目追逐妖股，我们更应该学习他那种尊重市场、顺势而为的哲学。<break time=\"500ms\"/>好了，今天的妖股传说与游资复盘就到这里，感谢大家的收听，我们下期再见！"
+    }
+]

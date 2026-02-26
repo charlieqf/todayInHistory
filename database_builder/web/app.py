@@ -128,9 +128,11 @@ def create_job():
 def pipeline_view(job_id):
     conn = get_db_connection()
     job = conn.execute('''
-        SELECT vj.*, e.title, e.summary, e.month, e.day, e.year, e.rich_context 
+        SELECT vj.*, e.title, e.summary, e.month, e.day, e.year, e.rich_context, 
+               ch.display_name as channel_name, ch.color_accent as channel_color
         FROM video_jobs vj 
         JOIN historical_events e ON vj.event_id = e.id 
+        LEFT JOIN channels ch ON vj.channel_id = ch.id
         WHERE vj.id = ?
     ''', (job_id,)).fetchone()
     
@@ -186,9 +188,27 @@ def enrich_node(job_id):
 
 @app.route('/api/jobs/<int:job_id>/run_script', methods=['POST'])
 def run_script_node(job_id):
-    from pipeline.node_script_gen import run_script_generation
     try:
-        success = run_script_generation(job_id)
+        conn = get_db_connection()
+        job_info = conn.execute('''
+            SELECT ch.slug 
+            FROM video_jobs vj 
+            LEFT JOIN channels ch ON vj.channel_id = ch.id 
+            WHERE vj.id = ?
+        ''', (job_id,)).fetchone()
+        conn.close()
+        
+        channel_slug = job_info['slug'] if job_info else ''
+        
+        if channel_slug == 'stock_replay':
+            # Long-form content path -> Map visual prompts to the monolithic DB text
+            from pipeline.node_visual_mapper import run_visual_mapping
+            success = run_visual_mapping(job_id, words_per_chunk=400)
+        else:
+            # Short-form content path -> Generate 8-scene 60-second JSON
+            from pipeline.node_script_gen import run_script_generation
+            success = run_script_generation(job_id)
+            
         if success:
             return jsonify({"success": True, "message": "Script generated successfully"})
         else:
@@ -283,6 +303,7 @@ def get_events():
                vj.id as job_id,
                ch.display_name as channel_name,
                ch.color_accent as channel_color,
+               ch.slug as channel_slug,
                (SELECT GROUP_CONCAT(pm.platform) FROM publish_metrics pm WHERE pm.job_id = vj.id) as published_platforms
         FROM historical_events e
         LEFT JOIN video_jobs vj ON e.id = vj.event_id
@@ -307,14 +328,22 @@ def get_events():
     query += f" ORDER BY e.{order_by_clause} LIMIT 1000"
     
     try:
-        events = conn.execute(query, params).fetchall()
+        rows = conn.execute(query, params).fetchall()
+        valid_events = []
+        for row in rows:
+            ev = dict(row)
+            # Strict Validation Pact: Channel 1 ('it_history') MUST have dates
+            if ev.get('channel_id') == 1 and (ev.get('month') is None or ev.get('day') is None):
+                raise ValueError(f"DataIntegrityError: Calendar-based event '{ev.get('title')}' (ID: {ev.get('id')}) is critically missing month/day data!")
+            valid_events.append(ev)
+            
     except Exception as e:
-        print(f"DB Error: {e}")
-        events = []
+        print(f"DB/Validation Error: {e}")
+        return jsonify({"error": str(e)}), 500
     finally:
         conn.close()
     
-    return jsonify([dict(ix) for ix in events])
+    return jsonify(valid_events)
 
 @app.route('/api/stats')
 def get_stats():

@@ -22,10 +22,12 @@ export const MyComposition = () => {
 
   // Protect against empty audioUrl in testing
   const audioSource = scriptData.audioUrl ? staticFile(scriptData.audioUrl) : null;
+  const bgmSource = (scriptData as any).bgmUrl ? staticFile((scriptData as any).bgmUrl) : null;
 
   return (
     <AbsoluteFill style={{ backgroundColor: "#000" }}>
-      {audioSource && <Audio src={audioSource} />}
+      {audioSource && <Audio src={audioSource} volume={1} />}
+      {bgmSource && <Audio src={bgmSource} volume={0.15} loop />}
 
       {scenesWithFrames.map((scene, index) => {
         return (
